@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar target/otovent-0.0.1-SNAPSHOT.jar
+web: java -Dserver.port=$PORT -war target/web-service-0.0.1-SNAPSHOT.war
