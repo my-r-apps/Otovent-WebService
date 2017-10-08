@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Entity
@@ -29,9 +31,9 @@ public class User {
 
     private String email;
 
-    private List<String> interests;
+    private HashMap<String,String> interests = new HashMap<>();
 
-    private List<String> jobs;
+    private HashMap<String,String> jobs = new HashMap<>();
 
     private Role role;
 }
