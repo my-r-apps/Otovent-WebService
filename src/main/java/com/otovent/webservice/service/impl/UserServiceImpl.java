@@ -22,19 +22,13 @@ public class UserServiceImpl implements UserService{
     LogUserService logUserService;
 
     @Override
-    public Long getIdUserByUsernameAndPassword(String username, String password) {
-        return userRepository.getDistinctByUsernameAndPassword(username,password);
-    }
-
-    @Override
     public User validateUserById(String username,String password) {
-        User result = userRepository.getOne(getIdUserByUsernameAndPassword(username,password));
-        if(Optional.of(result).isPresent()) {
+        User result = userRepository.findOneByUsernameAndPassword(username,password);
+        if(result != null) {
             logUserService.insertLogUser(result,"Success Login");
             return result;
-        }
-        else {
-            logUserService.insertLogUser(result,"Failed Login");
+        } else {
+            logUserService.insertLogUser(null,"Failed Login");
             return null;
         }
     }
