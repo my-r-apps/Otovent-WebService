@@ -50,4 +50,20 @@ public class UserController {
                     .httpStatus(HttpStatus.ACCEPTED).message("Success Login").result(result).build();
         }
     }
+
+    // TODO Edit or Add New User
+    @RequestMapping(value="/add",method = RequestMethod.POST, consumes =  MediaType.APPLICATION_JSON_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public BaseResponse AddNewUser(@RequestBody UserRequest userRequest){
+        List<User> result = new ArrayList<>();
+        User user = userService.addOrEditUser(userRequest);
+        if(user == null){
+            return BaseResponse.builder()
+                    .httpStatus(HttpStatus.NOT_ACCEPTABLE).message("User Not Exist").result(null).build();
+        } else {
+            result.add(user);
+            return BaseResponse.builder()
+                    .httpStatus(HttpStatus.ACCEPTED).message("Success").result(result).build();
+        }
+    }
 }
