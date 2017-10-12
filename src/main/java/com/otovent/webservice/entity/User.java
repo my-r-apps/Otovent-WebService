@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "otovent_user")
 @Data
 @Builder
 public class User {

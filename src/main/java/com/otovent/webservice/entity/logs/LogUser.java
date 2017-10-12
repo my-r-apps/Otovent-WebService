@@ -22,6 +22,4 @@ public class LogUser {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     private User user;
-
-    private String username;
 }

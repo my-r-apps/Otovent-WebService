@@ -11,5 +11,5 @@ import java.util.List;
 public class BaseResponse {
     private HttpStatus httpStatus;
     private String message;
-    private List<Object> result;
+    private List<? extends Object> result;
 }
