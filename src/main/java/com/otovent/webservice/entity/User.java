@@ -35,5 +35,7 @@ public class User {
 
     private HashMap<String,String> jobs = new HashMap<>();
 
+    private HashMap<String,String> photos = new HashMap<>();
+
     private Role role;
 }
