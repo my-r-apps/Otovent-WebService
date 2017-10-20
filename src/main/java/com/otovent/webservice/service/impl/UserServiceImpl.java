@@ -37,8 +37,8 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User addOrEditUser(UserRequest userRequest) {
-        User user = null;
-        if(userRepository.getOne(userRequest.getId()) != null){
+        User user;
+        if(!userRequest.getId().toString().isEmpty()){
             user = User.builder()
                     .id(userRequest.getId())
                     .email(userRequest.getEmail())
