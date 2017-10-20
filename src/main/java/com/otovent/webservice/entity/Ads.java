@@ -2,6 +2,7 @@ package com.otovent.webservice.entity;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
 
@@ -21,4 +22,6 @@ public class Ads {
     @ManyToOne(cascade = CascadeType.MERGE)
     private User user;
 
+    @Tolerate
+    Ads(){}
 }

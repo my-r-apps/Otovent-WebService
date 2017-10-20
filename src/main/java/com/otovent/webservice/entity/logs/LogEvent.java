@@ -4,6 +4,7 @@ import com.otovent.webservice.entity.Events;
 import com.otovent.webservice.entity.User;
 import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
 
@@ -21,4 +22,7 @@ public class LogEvent {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     private Events event;
+
+    @Tolerate
+    LogEvent(){}
 }

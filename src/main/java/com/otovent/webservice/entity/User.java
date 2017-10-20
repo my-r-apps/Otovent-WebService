@@ -3,6 +3,7 @@ package com.otovent.webservice.entity;
 import com.otovent.webservice.entity.enums.Role;
 import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -38,4 +39,7 @@ public class User {
     private HashMap<String,String> photos = new HashMap<>();
 
     private Role role;
+
+    @Tolerate
+    User(){}
 }
