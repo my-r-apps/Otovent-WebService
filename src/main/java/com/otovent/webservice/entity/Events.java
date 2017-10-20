@@ -1,10 +1,12 @@
 package com.otovent.webservice.entity;
 
+import com.otovent.webservice.entity.enums.StatusEntity;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table
@@ -23,6 +25,12 @@ public class Events {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     private User user;
+
+    private Date createdDate;
+
+    private Date editedDate;
+
+    private StatusEntity status;
 
     @Tolerate
     Events(){}

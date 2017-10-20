@@ -1,26 +1,20 @@
-package com.otovent.webservice.entity;
+package com.otovent.webservice.entity.request;
 
+import com.otovent.webservice.entity.User;
 import com.otovent.webservice.entity.enums.StatusEntity;
 import lombok.Builder;
 import lombok.Data;
-import lombok.experimental.Tolerate;
 
-import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-@Table
 @Data
 @Builder
-public class Posts {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PostRequest {
     private Long id;
 
     private String description;
     private String imageUrl;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
     private User user;
 
     private Date createdDate;
@@ -28,7 +22,4 @@ public class Posts {
     private Date editedDate;
 
     private StatusEntity status;
-
-    @Tolerate
-    Posts(){}
 }

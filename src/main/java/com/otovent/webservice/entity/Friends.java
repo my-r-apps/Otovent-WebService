@@ -1,10 +1,12 @@
 package com.otovent.webservice.entity;
 
+import com.otovent.webservice.entity.enums.StatusEntity;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
@@ -19,6 +21,10 @@ public class Friends {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     private User friend;
+
+    private Date dateFriend;
+
+    private StatusEntity status;
 
     @Tolerate
     Friends(){}
