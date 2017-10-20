@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Table
 @Entity
@@ -22,6 +23,8 @@ public class LogEvent {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     private Events event;
+
+    private Date time;
 
     @Tolerate
     LogEvent(){}
