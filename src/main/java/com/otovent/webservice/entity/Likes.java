@@ -3,6 +3,7 @@ package com.otovent.webservice.entity;
 import com.otovent.webservice.entity.enums.DEPENDENCY_TABLE;
 import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
 
@@ -20,4 +21,7 @@ public class Likes {
     private Long idTarget;
     
     private DEPENDENCY_TABLE dependency_table;
+
+    @Tolerate
+    Likes(){}
 }

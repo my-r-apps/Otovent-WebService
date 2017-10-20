@@ -3,6 +3,7 @@ package com.otovent.webservice.entity.logs;
 import com.otovent.webservice.entity.User;
 import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -22,4 +23,7 @@ public class LogUser {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     private User user;
+
+    @Tolerate
+    LogUser(){}
 }
