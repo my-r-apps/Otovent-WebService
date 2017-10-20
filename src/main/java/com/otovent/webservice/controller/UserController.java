@@ -36,6 +36,21 @@ public class UserController {
                     .build();
     }
 
+    // TODO Show One Data User
+    @RequestMapping(value = "/get/user", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public BaseResponse getAllUsers(@RequestHeader Long id){
+        User user = userService.getDetailOneUser(id);
+        List<User> result =  new ArrayList<>();
+        result.add(user);
+        if(!result.isEmpty())
+            return BaseResponse.builder().httpStatus(HttpStatus.OK).message("Success")
+                    .result(result).build();
+        else
+            return BaseResponse.builder().httpStatus(HttpStatus.OK).message("No Users")
+                    .result(null)
+                    .build();
+    }
+
     // TODO Login User
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse AuthLogin(@RequestBody LoginRequest loginRequest){

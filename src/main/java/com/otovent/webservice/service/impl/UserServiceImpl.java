@@ -58,6 +58,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public User getDetailOneUser(Long id) {
+        return userRepository.findOne(id);
+    }
+
+    @Override
     public List<User> getAllUser() {
         return userRepository.findAll();
     }
