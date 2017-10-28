@@ -1,26 +1,21 @@
-package com.otovent.webservice.entity;
+package com.otovent.webservice.entity.request;
 
+import com.otovent.webservice.entity.User;
 import com.otovent.webservice.entity.enums.StatusEntity;
 import lombok.Builder;
 import lombok.Data;
-import lombok.experimental.Tolerate;
 
-import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-@Table
 @Data
 @Builder
-public class Cars {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CarRequest {
     private Long id;
 
     private String desc;
+
     private String imageLink;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
     private User user;
 
     private Date uploadDate;
@@ -28,7 +23,4 @@ public class Cars {
     private Date editedDate;
 
     private StatusEntity status;
-
-    @Tolerate
-    Cars(){}
 }

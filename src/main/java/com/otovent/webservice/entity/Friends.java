@@ -1,7 +1,6 @@
-package com.otovent.webservice.entity.logs;
+package com.otovent.webservice.entity;
 
-import com.otovent.webservice.entity.Events;
-import com.otovent.webservice.entity.User;
+import com.otovent.webservice.entity.enums.StatusEntity;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Tolerate;
@@ -9,11 +8,10 @@ import lombok.experimental.Tolerate;
 import javax.persistence.*;
 import java.util.Date;
 
-@Table
 @Entity
 @Data
 @Builder
-public class LogEvent {
+public class Friends {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,10 +20,12 @@ public class LogEvent {
     private User user;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    private Events event;
+    private User friend;
 
-    private Date time;
+    private Date dateFriend;
+
+    private StatusEntity status;
 
     @Tolerate
-    LogEvent(){}
+    Friends(){}
 }

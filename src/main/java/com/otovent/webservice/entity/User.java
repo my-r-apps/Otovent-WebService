@@ -1,6 +1,7 @@
 package com.otovent.webservice.entity;
 
 import com.otovent.webservice.entity.enums.Role;
+import com.otovent.webservice.entity.enums.StatusEntity;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Tolerate;
@@ -39,6 +40,8 @@ public class User {
     private HashMap<String,String> photos = new HashMap<>();
 
     private Role role;
+
+    private StatusEntity status;
 
     @Tolerate
     User(){}

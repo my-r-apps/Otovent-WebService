@@ -9,15 +9,25 @@ import com.otovent.webservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
 @CrossOrigin(value = "*")
 @RequestMapping(value = "users")
 public class UserController {
+    @Autowired
+    ServletContext context;
     @Autowired
     UserService  userService;
     @Autowired
@@ -30,6 +40,21 @@ public class UserController {
         if(!result.isEmpty())
             return BaseResponse.builder().httpStatus(HttpStatus.OK).message("Success")
             .result(result).build();
+        else
+            return BaseResponse.builder().httpStatus(HttpStatus.OK).message("No Users")
+                    .result(null)
+                    .build();
+    }
+
+    // TODO Show One Data User
+    @RequestMapping(value = "/get/user", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public BaseResponse getAllUsers(@RequestHeader Long id){
+        User user = userService.getDetailOneUser(id);
+        List<User> result =  new ArrayList<>();
+        result.add(user);
+        if(!result.isEmpty())
+            return BaseResponse.builder().httpStatus(HttpStatus.OK).message("Success")
+                    .result(result).build();
         else
             return BaseResponse.builder().httpStatus(HttpStatus.OK).message("No Users")
                     .result(null)
@@ -65,5 +90,28 @@ public class UserController {
             return BaseResponse.builder()
                     .httpStatus(HttpStatus.ACCEPTED).message("Success").result(result).build();
         }
+    }
+
+    // TODO Controller for Upload User
+    @RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<?> uploadFile(@RequestParam("uploadfile")MultipartFile uploadFile,
+                                        @RequestHeader Long id, @RequestHeader String key) throws IOException {
+        if (!uploadFile.getContentType().toLowerCase().contains("jpg")
+                && !uploadFile.getContentType().toLowerCase().contains("png")
+                && !uploadFile.getContentType().toLowerCase().contains("jpeg")) {
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+        Date now = new Date();
+        String keyName = now.getTime()+"-"+id+key.hashCode()+"-"+uploadFile.hashCode()+".jpg";
+        try {
+            byte[] bytes = uploadFile.getBytes();
+            Path path = Paths.get("src/main/resources/scontent/"+keyName);
+            Files.write(path,bytes);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
