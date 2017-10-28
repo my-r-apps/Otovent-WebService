@@ -19,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -92,25 +93,24 @@ public class UserController {
     }
 
     // TODO Controller for Upload User
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    @RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<?> uploadFile(@RequestParam("uploadfile")MultipartFile uploadFile, @RequestParam Long id) throws IOException {
-//        BufferedOutputStream stream = null;
+    public ResponseEntity<?> uploadFile(@RequestParam("uploadfile")MultipartFile uploadFile,
+                                        @RequestHeader Long id, @RequestHeader String key) throws IOException {
+        if (!uploadFile.getContentType().toLowerCase().contains("jpg")
+                && !uploadFile.getContentType().toLowerCase().contains("png")
+                && !uploadFile.getContentType().toLowerCase().contains("jpeg")) {
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+        Date now = new Date();
+        String keyName = now.getTime()+"-"+id+key.hashCode()+"-"+uploadFile.hashCode()+".jpg";
         try {
-//            String filename = uploadFile.getOriginalFilename();
-//            String directory = context.getRealPath("resources/scontent");
-//
-//            stream = new BufferedOutputStream(new FileOutputStream(new File(directory, filename)));
-//            stream.write(uploadFile.getBytes());
             byte[] bytes = uploadFile.getBytes();
-            Path path = Paths.get("src/main/resources/scontent/"+id+uploadFile.getOriginalFilename());
+            Path path = Paths.get("src/main/resources/scontent/"+keyName);
             Files.write(path,bytes);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        } finally {
-//            if (stream != null)
-//                stream.close();
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
