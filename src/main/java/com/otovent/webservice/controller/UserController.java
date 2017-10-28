@@ -9,8 +9,15 @@ import com.otovent.webservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +25,8 @@ import java.util.List;
 @CrossOrigin(value = "*")
 @RequestMapping(value = "users")
 public class UserController {
+    @Autowired
+    ServletContext context;
     @Autowired
     UserService  userService;
     @Autowired
@@ -80,5 +89,29 @@ public class UserController {
             return BaseResponse.builder()
                     .httpStatus(HttpStatus.ACCEPTED).message("Success").result(result).build();
         }
+    }
+
+    // TODO Controller for Upload User
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<?> uploadFile(@RequestParam("uploadfile")MultipartFile uploadFile, @RequestParam Long id) throws IOException {
+//        BufferedOutputStream stream = null;
+        try {
+//            String filename = uploadFile.getOriginalFilename();
+//            String directory = context.getRealPath("resources/scontent");
+//
+//            stream = new BufferedOutputStream(new FileOutputStream(new File(directory, filename)));
+//            stream.write(uploadFile.getBytes());
+            byte[] bytes = uploadFile.getBytes();
+            Path path = Paths.get("src/main/resources/scontent/"+id+uploadFile.getOriginalFilename());
+            Files.write(path,bytes);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } finally {
+//            if (stream != null)
+//                stream.close();
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
