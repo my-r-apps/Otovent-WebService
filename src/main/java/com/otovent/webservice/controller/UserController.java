@@ -120,18 +120,9 @@ public class UserController {
     }
 
     // TODO To Get Image From Root Projec / Uploaded
-    @RequestMapping(value = "/get/image", method = RequestMethod.GET)
+    @RequestMapping(value = "/image/get", method = RequestMethod.GET)
     public BaseResponse getImage(@RequestHeader Long id, @RequestHeader String key) throws IOException {
         String keyName = id+key+".jpg";
-//        URLDataSource source = new URLDataSource(this.getClass().get);
-//        System.out.println(source.getURL());
-//        BufferedImage image = ImageIO.read(source.getURL());
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//        ImageIO.write(image, "jpg", baos);
-//        baos.flush();
-//        byte[] result = baos.toByteArray();
-//        baos.close();
-//        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(result);
         Path path = Paths.get("scontent/");
         Path file = path.resolve(keyName);
         Resource resource = new UrlResource(file.toUri());
