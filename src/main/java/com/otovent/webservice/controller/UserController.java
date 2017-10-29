@@ -13,7 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.activation.URLDataSource;
+import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -98,12 +101,10 @@ public class UserController {
     public ResponseEntity<?> uploadFile(@RequestParam("uploadfile")MultipartFile uploadFile,
                                         @RequestHeader Long id, @RequestHeader String key) throws IOException {
         if (!uploadFile.getContentType().toLowerCase().contains("jpg")
-                && !uploadFile.getContentType().toLowerCase().contains("png")
                 && !uploadFile.getContentType().toLowerCase().contains("jpeg")) {
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
-        Date now = new Date();
-        String keyName = now.getTime()+"-"+id+key.hashCode()+"-"+uploadFile.hashCode()+".jpg";
+        String keyName = id+key+".jpg";
         try {
             byte[] bytes = uploadFile.getBytes();
             Path path = Paths.get("src/main/resources/scontent/"+keyName);
@@ -114,4 +115,16 @@ public class UserController {
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    // TODO To Get Image From Root Projec / Uploaded
+    @RequestMapping(value = "/get/image", method = RequestMethod.GET)
+    public BaseResponse getImage(@RequestHeader Long id, @RequestHeader String key) {
+        String keyName = id+key+".jpg";
+        URLDataSource source = new URLDataSource(this.getClass().getResource("/scontent/"+keyName));
+        System.out.println(source.getURL());
+        List<String> result = new ArrayList<>();
+        result.add(source.getURL().toString());
+        return BaseResponse.builder().httpStatus(HttpStatus.OK).message("OK").result(result).build();
+    }
+
 }
