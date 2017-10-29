@@ -7,6 +7,8 @@ import com.otovent.webservice.entity.response.BaseResponse;
 import com.otovent.webservice.service.LogUserService;
 import com.otovent.webservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -106,9 +108,10 @@ public class UserController {
         }
         String keyName = id+key+".jpg";
         try {
-            byte[] bytes = uploadFile.getBytes();
-            Path path = Paths.get("src/main/resources/scontent/"+keyName);
-            Files.write(path,bytes);
+//            byte[] bytes = uploadFile.getBytes();
+            Path path = Paths.get("scontent/");
+            Files.copy(uploadFile.getInputStream(), path.resolve(keyName));
+//            Files.write(path,bytes);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -118,13 +121,25 @@ public class UserController {
 
     // TODO To Get Image From Root Projec / Uploaded
     @RequestMapping(value = "/get/image", method = RequestMethod.GET)
-    public BaseResponse getImage(@RequestHeader Long id, @RequestHeader String key) {
+    public BaseResponse getImage(@RequestHeader Long id, @RequestHeader String key) throws IOException {
         String keyName = id+key+".jpg";
-        URLDataSource source = new URLDataSource(this.getClass().getResource("/scontent/"+keyName));
-        System.out.println(source.getURL());
+//        URLDataSource source = new URLDataSource(this.getClass().get);
+//        System.out.println(source.getURL());
+//        BufferedImage image = ImageIO.read(source.getURL());
+//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//        ImageIO.write(image, "jpg", baos);
+//        baos.flush();
+//        byte[] result = baos.toByteArray();
+//        baos.close();
+//        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(result);
+        Path path = Paths.get("scontent/");
+        Path file = path.resolve(keyName);
+        Resource resource = new UrlResource(file.toUri());
+        System.out.println(resource.getURL());
+        System.out.println(resource.getURI());
         List<String> result = new ArrayList<>();
-        result.add(source.getURL().toString());
-        return BaseResponse.builder().httpStatus(HttpStatus.OK).message("OK").result(result).build();
+        result.add(resource.getURI().toString());
+        return BaseResponse.builder().result(result).build();
     }
 
 }
