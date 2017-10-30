@@ -28,7 +28,7 @@ public class Comments {
 
     private Date editedDate;
 
-    private StatusEntity status;
+    private StatusEntity status = StatusEntity.ACTIVE;
 
     @Tolerate
     Comments(){}
