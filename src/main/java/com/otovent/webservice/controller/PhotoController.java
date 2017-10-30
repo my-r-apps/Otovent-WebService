@@ -66,13 +66,11 @@ public class PhotoController {
         }
 
         try {
-//            Path path = Paths.get("scontent/");
-            //For Heroku Path :
-            Path path = Paths.get("file:///app/scontent/");
+            Path path = Paths.get("scontent/");
             Files.copy(uploadFile.getInputStream(), path.resolve(keyName));
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-            return BaseResponse.builder().httpStatus(HttpStatus.BAD_REQUEST).message(ex.getMessage()).result(null).build();
+            return BaseResponse.builder().httpStatus(HttpStatus.BAD_REQUEST).message(ex.toString()).result(null).build();
         }
         return BaseResponse.builder().httpStatus(HttpStatus.OK).message("Success Upload").result(null).build();
     }
