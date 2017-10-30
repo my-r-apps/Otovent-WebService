@@ -67,7 +67,7 @@ public class PhotoController {
         return BaseResponse.builder().httpStatus(HttpStatus.OK).message("Success Upload").result(null).build();
     }
 
-    // TODO To Get Image From Root Project / Uploaded ( scontent )
+    /*// TODO To Get Image From Root Project / Uploaded ( scontent )
     @RequestMapping(value = "/get/url", method = RequestMethod.GET)
     public BaseResponse getImage(@RequestHeader Long id, @RequestHeader String key) throws IOException {
         String keyName = id+key+".jpg";
@@ -82,5 +82,5 @@ public class PhotoController {
                 .httpStatus(HttpStatus.OK)
                 .message("Success Get Image")
                 .result(result).build();
-    }
+    }*/
 }
