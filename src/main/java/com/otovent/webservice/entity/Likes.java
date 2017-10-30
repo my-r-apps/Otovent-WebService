@@ -1,6 +1,6 @@
 package com.otovent.webservice.entity;
 
-import com.otovent.webservice.entity.enums.DEPENDENCY_TABLE;
+import com.otovent.webservice.entity.enums.LikesDependency;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Tolerate;
@@ -20,7 +20,7 @@ public class Likes {
 
     private Long idTarget;
     
-    private DEPENDENCY_TABLE dependency_table;
+    private LikesDependency likesDependency;
 
     @Tolerate
     Likes(){}

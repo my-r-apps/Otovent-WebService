@@ -8,6 +8,7 @@ import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -36,8 +37,6 @@ public class User {
     private HashMap<String,String> interests = new HashMap<>();
 
     private HashMap<String,String> jobs = new HashMap<>();
-
-    private HashMap<String,String> photos = new HashMap<>();
 
     private Role role;
 
