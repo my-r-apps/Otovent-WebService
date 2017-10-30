@@ -1,7 +1,7 @@
 package com.otovent.webservice.entity.request;
 
 import com.otovent.webservice.entity.User;
-import com.otovent.webservice.entity.enums.DEPENDENCY_TABLE;
+import com.otovent.webservice.entity.enums.LikesDependency;
 import lombok.Builder;
 import lombok.Data;
 
@@ -15,5 +15,5 @@ public class LikesRequest {
 
     private Long idTarget;
 
-    private DEPENDENCY_TABLE dependency_table;
+    private LikesDependency likesDependency;
 }

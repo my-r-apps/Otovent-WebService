@@ -7,24 +7,12 @@ import com.otovent.webservice.entity.response.BaseResponse;
 import com.otovent.webservice.service.LogUserService;
 import com.otovent.webservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.activation.URLDataSource;
-import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -82,7 +70,7 @@ public class UserController {
     }
 
     // TODO Edit or Add New User
-    @RequestMapping(value="/add",method = RequestMethod.POST, consumes =  MediaType.APPLICATION_JSON_VALUE,
+    @RequestMapping(value="/add-edit",method = RequestMethod.POST, consumes =  MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse AddNewUser(@RequestBody UserRequest userRequest){
         List<User> result = new ArrayList<>();
@@ -96,41 +84,4 @@ public class UserController {
                     .httpStatus(HttpStatus.ACCEPTED).message("Success").result(result).build();
         }
     }
-
-    // TODO Controller for Upload User
-    @RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseEntity<?> uploadFile(@RequestParam("uploadfile")MultipartFile uploadFile,
-                                        @RequestHeader Long id, @RequestHeader String key) throws IOException {
-        if (!uploadFile.getContentType().toLowerCase().contains("jpg")
-                && !uploadFile.getContentType().toLowerCase().contains("jpeg")) {
-            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
-        }
-        String keyName = id+key+".jpg";
-        try {
-//            byte[] bytes = uploadFile.getBytes();
-            Path path = Paths.get("scontent/");
-            Files.copy(uploadFile.getInputStream(), path.resolve(keyName));
-//            Files.write(path,bytes);
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    // TODO To Get Image From Root Projec / Uploaded
-    @RequestMapping(value = "/image/get", method = RequestMethod.GET)
-    public BaseResponse getImage(@RequestHeader Long id, @RequestHeader String key) throws IOException {
-        String keyName = id+key+".jpg";
-        Path path = Paths.get("scontent/");
-        Path file = path.resolve(keyName);
-        Resource resource = new UrlResource(file.toUri());
-        System.out.println(resource.getURL());
-        System.out.println(resource.getURI());
-        List<String> result = new ArrayList<>();
-        result.add(resource.getURI().toString());
-        return BaseResponse.builder().result(result).build();
-    }
-
 }

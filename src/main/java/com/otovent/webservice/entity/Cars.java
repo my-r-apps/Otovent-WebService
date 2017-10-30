@@ -17,7 +17,10 @@ public class Cars {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String desc;
+    private String name;
+
+    private String description;
+
     private String imageLink;
 
     @ManyToOne(cascade = CascadeType.MERGE)

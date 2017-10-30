@@ -22,6 +22,7 @@ public class Events {
     private String description;
     private String longitude;
     private String latitude;
+    private String imageUrl;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     private User user;

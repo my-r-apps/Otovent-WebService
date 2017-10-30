@@ -1,6 +1,6 @@
 package com.otovent.webservice.entity.enums;
 
-public enum DEPENDENCY_TABLE {
+public enum LikesDependency {
     CARS,
     EVENTS,
     POSTS,
