@@ -70,7 +70,7 @@ public class UserController {
     }
 
     // TODO Edit or Add New User
-    @RequestMapping(value="/add",method = RequestMethod.POST, consumes =  MediaType.APPLICATION_JSON_VALUE,
+    @RequestMapping(value="/add-edit",method = RequestMethod.POST, consumes =  MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse AddNewUser(@RequestBody UserRequest userRequest){
         List<User> result = new ArrayList<>();

@@ -38,14 +38,14 @@ public class CarsServiceImpl implements CarsService{
         if(carRequest.getId().toString().isEmpty()){
             carTarget = Cars.builder()
                     .description(carRequest.getDesc())
-                    .status(StatusEntity.ABLE)
+                    .status(StatusEntity.ACTIVE)
                     .name(carRequest.getName())
                     .build();
         } else {
             carTarget = Cars.builder()
                     .id(carRequest.getId())
                     .description(carRequest.getDesc())
-                    .status(StatusEntity.ABLE)
+                    .status(StatusEntity.ACTIVE)
                     .name(carRequest.getName())
                     .editedDate(new Date())
                     .build();

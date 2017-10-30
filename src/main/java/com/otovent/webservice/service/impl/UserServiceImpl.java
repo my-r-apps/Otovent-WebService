@@ -66,4 +66,11 @@ public class UserServiceImpl implements UserService{
     public List<User> getAllUser() {
         return userRepository.findAll();
     }
+
+    @Override
+    public void updatePhotoProfile(Long id, String urlImg){
+        User userTarget = userRepository.findOne(id);
+        userTarget.setPhotoProfile(urlImg);
+        userRepository.save(userTarget);
+    }
 }

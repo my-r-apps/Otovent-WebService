@@ -6,7 +6,6 @@ import com.otovent.webservice.entity.enums.Role;
 import com.otovent.webservice.entity.enums.StatusEntity;
 import com.otovent.webservice.repository.CarsRepository;
 import com.otovent.webservice.repository.UserRepository;
-import com.otovent.webservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,13 +27,14 @@ public class Seeder {
                 .password("tes")
                 .username("tes")
                 .role(Role.MEMBER)
+                .status(StatusEntity.ACTIVE)
                 .build();
         userRepository.save(user);
 
         Cars car = Cars.builder()
                 .description("Ini DataSeeder")
                 .user(user)
-                .status(StatusEntity.ABLE)
+                .status(StatusEntity.ACTIVE)
                 .name("Mobil Mobilan")
                 .build();
         carsRepository.save(car);

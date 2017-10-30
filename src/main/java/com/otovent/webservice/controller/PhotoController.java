@@ -56,6 +56,13 @@ public class PhotoController {
         }
         else if (typeUpload.equals(PhotosDependency.EVENTS)){}
         else if (typeUpload.equals(PhotosDependency.POSTS)){}
+        // Photo Profile
+        else if (typeUpload.equals(PhotosDependency.USERS)){
+            User userTarget = userService.getDetailOneUser(id);
+            keyName = String.valueOf(userTarget.hashCode())+uploadedDate.getTime()+
+                    PhotosDependency.USERS.hashCode()+".jpg";
+            userService.updatePhotoProfile(id,locationResource+keyName);
+        }
 
         try {
             Path path = Paths.get("scontent/");

@@ -40,7 +40,7 @@ public class User {
 
     private Role role;
 
-    private StatusEntity status;
+    private StatusEntity status = StatusEntity.ACTIVE;
 
     @Tolerate
     User(){}

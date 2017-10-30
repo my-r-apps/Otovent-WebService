@@ -4,5 +4,6 @@ public enum PhotosDependency {
     ADS,
     CARS,
     EVENTS,
-    POSTS
+    POSTS,
+    USERS
 }

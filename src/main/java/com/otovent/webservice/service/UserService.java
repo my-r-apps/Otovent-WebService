@@ -10,4 +10,5 @@ public interface UserService {
     User addOrEditUser(UserRequest userRequest);
     User getDetailOneUser(Long id);
     List<User> getAllUser();
+    void updatePhotoProfile(Long id, String urlImg);
 }
