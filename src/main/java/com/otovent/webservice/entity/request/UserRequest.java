@@ -4,6 +4,7 @@ import com.otovent.webservice.entity.enums.Role;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -22,7 +23,19 @@ public class UserRequest {
 
     private String photoProfile;
 
+    private String address;
+
     private String email;
+
+    private Date birthday;
+
+    private String phoneNumber;
+
+    private String linkFacebook;
+
+    private String linkInstagram;
+
+    private String linkTwitter;
 
     private List<String> interests;
 

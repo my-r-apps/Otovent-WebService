@@ -32,7 +32,19 @@ public class User {
 
     private String photoProfile;
 
+    private String address;
+
     private String email;
+
+    private Date birthday;
+
+    private String phoneNumber;
+
+    private String linkFacebook;
+
+    private String linkInstagram;
+
+    private String linkTwitter;
 
     private HashMap<String,String> interests = new HashMap<>();
 

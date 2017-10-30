@@ -2,6 +2,7 @@ package com.otovent.webservice.service.impl;
 
 import com.otovent.webservice.entity.User;
 import com.otovent.webservice.entity.enums.Role;
+import com.otovent.webservice.entity.enums.StatusEntity;
 import com.otovent.webservice.entity.request.UserRequest;
 import com.otovent.webservice.repository.UserRepository;
 import com.otovent.webservice.service.LogUserService;
@@ -41,6 +42,13 @@ public class UserServiceImpl implements UserService{
                     .lastName(userRequest.getLastName())
                     .username(userRequest.getUsername())
                     .password(userRequest.getPassword())
+                    .address(userRequest.getAddress())
+                    .birthday(userRequest.getBirthday())
+                    .linkFacebook(userRequest.getLinkFacebook())
+                    .linkInstagram(userRequest.getLinkInstagram())
+                    .linkTwitter(userRequest.getLinkTwitter())
+                    .phoneNumber(userRequest.getPhoneNumber())
+                    .status(StatusEntity.ACTIVE)
                     .role(Role.MEMBER)
                     .build();
         } else {
@@ -50,7 +58,14 @@ public class UserServiceImpl implements UserService{
                     .lastName(userRequest.getLastName())
                     .username(userRequest.getUsername())
                     .password(userRequest.getPassword())
+                    .address(userRequest.getAddress())
+                    .birthday(userRequest.getBirthday())
+                    .linkFacebook(userRequest.getLinkFacebook())
+                    .linkInstagram(userRequest.getLinkInstagram())
+                    .linkTwitter(userRequest.getLinkTwitter())
+                    .phoneNumber(userRequest.getPhoneNumber())
                     .role(Role.MEMBER)
+                    .status(StatusEntity.ACTIVE)
                     .build();
         }
         userRepository.save(user);
