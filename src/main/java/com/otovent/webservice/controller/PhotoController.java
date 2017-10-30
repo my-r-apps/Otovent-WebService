@@ -47,11 +47,12 @@ public class PhotoController {
         String keyName= "";
         Date uploadedDate = new Date();
         String locationResource = environment.getProperty("resource.host");
+
         if (typeUpload.equals(PhotosDependency.ADS)){}
         else if (typeUpload.equals(PhotosDependency.CARS)){
             Cars carUploaded = carsService.getOneCar(id);
             keyName = String.valueOf(carUploaded.hashCode())+uploadedDate.getTime()+
-            PhotosDependency.CARS.hashCode()+".jpg";
+                    PhotosDependency.CARS.hashCode()+".jpg";
             carsService.updateLinkImageCar(id,locationResource+keyName);
         }
         else if (typeUpload.equals(PhotosDependency.EVENTS)){}
@@ -65,7 +66,9 @@ public class PhotoController {
         }
 
         try {
-            Path path = Paths.get("scontent/");
+//            Path path = Paths.get("scontent/");
+            //For Heroku Path :
+            Path path = Paths.get("file:///app/scontent/");
             Files.copy(uploadFile.getInputStream(), path.resolve(keyName));
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
