@@ -42,7 +42,7 @@ public class CommentServiceImpl implements CommentService{
         Posts postTarget = postService.getOnePost(idPost);
         Comments result = Comments.builder()
                 .createdDate(new Date())
-                .description(commentRequest.getDescription())
+                .commentDetail(commentRequest.getDescription())
                 .post(postTarget)
                 .status(StatusEntity.ACTIVE)
                 .user(user)
@@ -58,7 +58,7 @@ public class CommentServiceImpl implements CommentService{
         Comments result = Comments.builder()
                 .id(commentRequest.getId())
                 .editedDate(new Date())
-                .description(commentRequest.getDescription())
+                .commentDetail(commentRequest.getDescription())
                 .post(postTarget)
                 .status(StatusEntity.ACTIVE)
                 .user(user)
