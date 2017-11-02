@@ -13,9 +13,9 @@ public class FriendRequest {
 
     private Long id;
 
-    private User user;
+    private Long user;
 
-    private User friend;
+    private Long friend;
 
     private Date dateFriend;
 
