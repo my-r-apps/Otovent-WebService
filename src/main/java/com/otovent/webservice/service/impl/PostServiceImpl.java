@@ -8,6 +8,8 @@ import com.otovent.webservice.repository.PostRepository;
 import com.otovent.webservice.service.PostService;
 import com.otovent.webservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -23,6 +25,12 @@ public class PostServiceImpl implements PostService{
     @Override
     public List<Posts> getAllPost() {
         return postRepository.findAll();
+    }
+
+    @Override
+    public Page<Posts> getAllPostByUserAndCreatedDate(Long user, Date date, Pageable pageable) {
+        User userRequested = userService.getDetailOneUser(user);
+        return postRepository.findTop10ByUserAndCreatedDateOrderByCreatedDateDesc(userRequested, date, pageable);
     }
 
     @Override

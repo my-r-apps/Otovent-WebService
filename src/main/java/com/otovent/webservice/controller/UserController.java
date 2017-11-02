@@ -4,15 +4,22 @@ import com.otovent.webservice.entity.User;
 import com.otovent.webservice.entity.request.LoginRequest;
 import com.otovent.webservice.entity.request.UserRequest;
 import com.otovent.webservice.entity.response.BaseResponse;
+import com.otovent.webservice.entity.response.PaginationResponse;
 import com.otovent.webservice.service.LogUserService;
 import com.otovent.webservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletContext;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -83,5 +90,17 @@ public class UserController {
             return BaseResponse.builder()
                     .httpStatus(HttpStatus.ACCEPTED).message("Success").result(result).build();
         }
+    }
+
+    // TODO to get post and event in timeline
+    @GetMapping(value = "/get/timeline", produces = MediaType.APPLICATION_JSON_VALUE)
+    public PaginationResponse getUserTimeline(@RequestHeader Long idUser, @RequestHeader String dateRequested, Pageable pageable){
+        Page<? extends Object> result = userService.getTimeline(idUser,dateRequested,pageable);
+        return PaginationResponse.builder()
+                .result(result)
+                .totalPages(result.getTotalPages())
+                .message("Success")
+                .httpStatus(HttpStatus.OK)
+                .build();
     }
 }
