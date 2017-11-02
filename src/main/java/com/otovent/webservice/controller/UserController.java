@@ -5,6 +5,7 @@ import com.otovent.webservice.entity.request.LoginRequest;
 import com.otovent.webservice.entity.request.UserRequest;
 import com.otovent.webservice.entity.response.BaseResponse;
 import com.otovent.webservice.entity.response.PaginationResponse;
+import com.otovent.webservice.service.FriendService;
 import com.otovent.webservice.service.LogUserService;
 import com.otovent.webservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletContext;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RestController

@@ -1,16 +1,14 @@
 package com.otovent.webservice.service.impl;
 
 import com.otovent.webservice.entity.Events;
+import com.otovent.webservice.entity.Friends;
 import com.otovent.webservice.entity.Posts;
 import com.otovent.webservice.entity.User;
 import com.otovent.webservice.entity.enums.Role;
 import com.otovent.webservice.entity.enums.StatusEntity;
 import com.otovent.webservice.entity.request.UserRequest;
 import com.otovent.webservice.repository.UserRepository;
-import com.otovent.webservice.service.EventService;
-import com.otovent.webservice.service.LogUserService;
-import com.otovent.webservice.service.PostService;
-import com.otovent.webservice.service.UserService;
+import com.otovent.webservice.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -32,6 +30,8 @@ public class UserServiceImpl implements UserService{
     PostService postService;
     @Autowired
     EventService eventService;
+    @Autowired
+    FriendService friendService;
 
     @Override
     public User validateUserById(String email,String password) {
@@ -98,6 +98,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public Page<? extends Object> getTimeline(Long idUser, String dateRequested, Pageable pageable) {
+        List<Friends> listOfidFriend = friendService.getAllFriendByUser(idUser,pageable).getContent();
         DateFormat format = new SimpleDateFormat("dd-mm-yyyy");
         Date date = null;
         try {
@@ -108,11 +109,14 @@ public class UserServiceImpl implements UserService{
         List<Posts> resultPost = new ArrayList<>();
         List<Events> resultEvent = new ArrayList<>();
         List result = new ArrayList<>();
-        Optional.ofNullable(postService.getAllPostByUserAndCreatedDate(idUser,date,pageable).getContent())
-                .ifPresent(resultPost::addAll);
-        Optional.ofNullable(eventService.getAllEventByUserAndCreatedDate(idUser,date,pageable).getContent())
-                .ifPresent(resultEvent::addAll);
-        result.addAll(resultPost);
+        for (int i = 0; i < listOfidFriend.size(); i++) {
+            Optional.ofNullable(postService.getAllPostByUserAndCreatedDate(listOfidFriend.get(i).getId(),date,pageable).getContent())
+                    .ifPresent(resultPost::addAll);
+            Optional.ofNullable(eventService.getAllEventByUserAndCreatedDate(listOfidFriend.get(i).getId(),date,pageable).getContent())
+                    .ifPresent(resultEvent::addAll);
+            result.addAll(resultPost);
+            result.addAll(resultEvent);
+        }
         return new PageImpl<Object>(result);
     }
 
