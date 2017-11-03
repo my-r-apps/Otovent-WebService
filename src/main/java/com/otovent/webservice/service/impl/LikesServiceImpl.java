@@ -29,17 +29,17 @@ public class LikesServiceImpl implements LikeService{
 
     @Override
     public List<Likes> getAllLikesByPost(Long id) {
-        return likesRepository.findAllByIdTargetAndLikesDependency(id, LikesDependency.POSTS);
+        return likesRepository.findAllByIdTargetAndLikesDependencyAndStatusEntity(id, LikesDependency.POSTS,StatusEntity.ACTIVE);
     }
 
     @Override
     public List<Likes> getAllLikesByCars(Long id) {
-        return likesRepository.findAllByIdTargetAndLikesDependency(id, LikesDependency.CARS);
+        return likesRepository.findAllByIdTargetAndLikesDependencyAndStatusEntity(id, LikesDependency.CARS,StatusEntity.ACTIVE);
     }
 
     @Override
     public List<Likes> getAllLikesByComments(Long id) {
-        return likesRepository.findAllByIdTargetAndLikesDependency(id, LikesDependency.COMMENTS);
+        return likesRepository.findAllByIdTargetAndLikesDependencyAndStatusEntity(id, LikesDependency.COMMENTS,StatusEntity.ACTIVE);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class LikesServiceImpl implements LikeService{
         NotificationRequest notificationRequest =
                 NotificationRequest.builder()
                         .date(new Date())
-                        .idCommentLike(likesRepository.findByCreatedDate(now).getId())
+                        .idCommentLike(likesRepository.findByCreatedDateAndStatusEntity(now,StatusEntity.ACTIVE).getId())
                         .idPostEvent(likesRequest.getIdTarget())
                         .notificationDependency(NotificationDependency.LIKE)
                         .user(user.getId())

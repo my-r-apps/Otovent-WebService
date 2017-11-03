@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User validateUserById(String email,String password) {
-        User result = userRepository.findOneByEmailAndPassword(email,password);
+        User result = userRepository.findOneByEmailAndPasswordAndStatus(email,password,StatusEntity.ACTIVE);
         if(result != null) {
             logUserService.insertLogUser(result,"Success Login");
             return result;

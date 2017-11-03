@@ -33,13 +33,13 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public List<Comments> getAllCommentsByUser(Long idUser) {
         User userTarget = userService.getDetailOneUser(idUser);
-        return commentRepository.findAllByUserOrderByCreatedDateDesc(userTarget);
+        return commentRepository.findAllByUserAndStatusOrderByCreatedDateDesc(userTarget,StatusEntity.ACTIVE);
     }
 
     @Override
     public List<Comments> getAllCommentsByPost(Long idPost) {
         Posts postTarget = postService.getOnePost(idPost);
-        return commentRepository.findAllByPostOrderByCreatedDateDesc(postTarget);
+        return commentRepository.findAllByPostAndStatusOrderByCreatedDateDesc(postTarget,StatusEntity.ACTIVE);
     }
 
     @Override

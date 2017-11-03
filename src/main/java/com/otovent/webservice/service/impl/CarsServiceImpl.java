@@ -28,7 +28,7 @@ public class CarsServiceImpl implements CarsService{
     @Override
     public List<Cars> getAllCarsByUserTarget(Long idUser) {
         User userTarget = userService.getDetailOneUser(idUser);
-        List<Cars> result = carsRepository.findByUser(userTarget);
+        List<Cars> result = carsRepository.findByUserAndStatus(userTarget,StatusEntity.ACTIVE);
         return result;
     }
 

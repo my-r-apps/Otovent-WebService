@@ -32,7 +32,8 @@ public class PostServiceImpl implements PostService{
     @Override
     public Page<Posts> getAllPostByUserAndCreatedDate(Long user, Date date, Pageable pageable) {
         User userRequested = userService.getDetailOneUser(user);
-        return postRepository.findTop10ByUserAndCreatedDateOrderByCreatedDateDesc(userRequested, date, pageable);
+        return postRepository.findTop10ByUserAndCreatedDateAndStatusOrderByCreatedDateDesc(userRequested, date,
+                StatusEntity.ACTIVE,pageable);
     }
 
     @Override

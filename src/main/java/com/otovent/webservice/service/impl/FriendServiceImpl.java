@@ -30,14 +30,14 @@ public class FriendServiceImpl implements FriendService{
     @Override
     public Page<Friends> getAllFriendByUser(Long id, Pageable pageable) {
         User userRequested = userService.getDetailOneUser(id);
-        return friendRepository.findAllByUser(userRequested,pageable);
+        return friendRepository.findAllByUserAndStatus(userRequested,pageable,StatusEntity.ACTIVE);
     }
 
     @Override
     public Boolean addFriend(FriendRequest friendRequest) {
         User userRequested = userService.getDetailOneUser(friendRequest.getUser());
         User userTarget = userService.getDetailOneUser(friendRequest.getFriend());
-        Friends existingFriendship = friendRepository.findByUserAndFriend(userRequested,userTarget);
+        Friends existingFriendship = friendRepository.findByUserAndFriend(userRequested,userTarget,StatusEntity.ACTIVE);
         if (existingFriendship != null) {
             existingFriendship.setStatus(StatusEntity.ACTIVE);
             existingFriendship.setDateFriend(new Date());

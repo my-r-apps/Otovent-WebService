@@ -27,7 +27,7 @@ public class EventServiceImpl implements EventService{
     @Override
     public Page<Events> getAllEventByUserAndCreatedDate(Long idUser, Date date, Pageable pageable) {
         User user = userService.getDetailOneUser(idUser);
-        return eventRepository.findTop5ByUserAndCreatedDateOrderByCreatedDateDesc(user,date,pageable);
+        return eventRepository.findTop5ByUserAndCreatedDateAndStatusOrderByCreatedDateDesc(user,date,StatusEntity.ACTIVE,pageable);
     }
 
     @Override
