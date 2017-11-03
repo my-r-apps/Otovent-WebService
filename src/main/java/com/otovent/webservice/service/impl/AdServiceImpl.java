@@ -21,6 +21,11 @@ public class AdServiceImpl implements AdService{
     UserService userService;
 
     @Override
+    public Ads getOne(Long id) {
+        return adRepository.findOne(id);
+    }
+
+    @Override
     public List<Ads> getAllAdsVendor() {
         return adRepository.findAllByStatusAndConfirmationStatusOrderByDonationDesc(StatusEntity.ACTIVE,
                 AdStatus.CONFIRMED);

@@ -1,15 +1,9 @@
 package com.otovent.webservice.controller;
 
-import com.otovent.webservice.entity.Cars;
-import com.otovent.webservice.entity.Events;
-import com.otovent.webservice.entity.Posts;
-import com.otovent.webservice.entity.User;
+import com.otovent.webservice.entity.*;
 import com.otovent.webservice.entity.enums.PhotosDependency;
 import com.otovent.webservice.entity.response.BaseResponse;
-import com.otovent.webservice.service.CarsService;
-import com.otovent.webservice.service.EventService;
-import com.otovent.webservice.service.PostService;
-import com.otovent.webservice.service.UserService;
+import com.otovent.webservice.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
@@ -40,6 +34,8 @@ public class PhotoController {
     @Autowired
     PostService postService;
     @Autowired
+    AdService adService;
+    @Autowired
     Environment environment;
 
     // TODO Controller for Upload
@@ -56,7 +52,12 @@ public class PhotoController {
         Date uploadedDate = new Date();
         String locationResource = environment.getProperty("resource.host");
 
-        if (typeUpload.equals(PhotosDependency.ADS)){}
+        if (typeUpload.equals(PhotosDependency.ADS)){
+            Ads ad = adService.getOne(id);
+            keyName = String.valueOf(ad.hashCode())+uploadedDate.getTime()+
+                    PhotosDependency.ADS.hashCode()+".jpg";
+            adService.updateLinkImage(id,locationResource+keyName);
+        }
         else if (typeUpload.equals(PhotosDependency.CARS)){
             Cars carUploaded = carsService.getOneCar(id);
             keyName = String.valueOf(carUploaded.hashCode())+uploadedDate.getTime()+
