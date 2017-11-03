@@ -73,7 +73,7 @@ public class PhotoController {
             Posts postUploaded = postService.getOnePost(id);
             keyName = String.valueOf(postUploaded.hashCode())+uploadedDate.getTime()+
                     PhotosDependency.POSTS.hashCode()+".jpg";
-            eventService.updateLinkImage(id, locationResource+keyName);
+            postService.updateLinkImage(id, locationResource+keyName);
         }
         // Photo Profile
         else if (typeUpload.equals(PhotosDependency.USERS)){

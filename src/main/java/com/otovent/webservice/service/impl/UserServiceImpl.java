@@ -121,6 +121,30 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public Page<? extends Object> getPromotedTimeline(Long idUser, String dateRequested, Pageable pageable) {
+        List<User> vendorUser = userRepository.findAllByRole(Role.VENDOR);
+        DateFormat format = new SimpleDateFormat("dd-mm-yyyy");
+        Date date = null;
+        try {
+            date = format.parse(dateRequested);
+        } catch (ParseException e) {
+            System.out.println(e.toString());
+        }
+        List<Posts> resultPost = new ArrayList<>();
+        List<Events> resultEvent = new ArrayList<>();
+        List result = new ArrayList<>();
+        for (User vendor:vendorUser) {
+            Optional.ofNullable(postService.getAllPostByUserAndCreatedDate(vendor.getId(),date,pageable).getContent())
+                    .ifPresent(resultPost::addAll);
+            Optional.ofNullable(eventService.getAllEventByUserAndCreatedDate(vendor.getId(),date,pageable).getContent())
+                    .ifPresent(resultEvent::addAll);
+            result.addAll(resultPost);
+            result.addAll(resultEvent);
+        }
+        return new PageImpl<Object>(result);
+    }
+
+    @Override
     public void updatePhotoProfile(Long id, String urlImg){
         User userTarget = userRepository.findOne(id);
         userTarget.setPhotoProfile(urlImg);

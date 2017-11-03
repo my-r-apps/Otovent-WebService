@@ -1,10 +1,12 @@
 package com.otovent.webservice.controller;
 
+import com.otovent.webservice.entity.Ads;
 import com.otovent.webservice.entity.User;
 import com.otovent.webservice.entity.request.LoginRequest;
 import com.otovent.webservice.entity.request.UserRequest;
 import com.otovent.webservice.entity.response.BaseResponse;
 import com.otovent.webservice.entity.response.PaginationResponse;
+import com.otovent.webservice.service.AdService;
 import com.otovent.webservice.service.FriendService;
 import com.otovent.webservice.service.LogUserService;
 import com.otovent.webservice.service.UserService;
@@ -29,6 +31,8 @@ public class UserController {
     UserService  userService;
     @Autowired
     LogUserService logUserService;
+    @Autowired
+    AdService adService;
 
     // TODO Show All Data User
     @RequestMapping(value = "/get/all", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
@@ -93,6 +97,18 @@ public class UserController {
     @GetMapping(value = "/get/timeline", produces = MediaType.APPLICATION_JSON_VALUE)
     public PaginationResponse getUserTimeline(@RequestHeader Long idUser, @RequestHeader String dateRequested, Pageable pageable){
         Page<? extends Object> result = userService.getTimeline(idUser,dateRequested,pageable);
+        return PaginationResponse.builder()
+                .result(result)
+                .totalPages(result.getTotalPages())
+                .message("Success")
+                .httpStatus(HttpStatus.OK)
+                .build();
+
+    }// TODO Get List Ads of vendors
+    @RequestMapping(value = "/get/promoted", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public PaginationResponse getPromotedTimelineByUserAndDate(@RequestHeader Long id, @RequestHeader String date,
+                                                         Pageable pageable){
+        Page<? extends Object> result = userService.getPromotedTimeline(id,date,pageable);
         return PaginationResponse.builder()
                 .result(result)
                 .totalPages(result.getTotalPages())
