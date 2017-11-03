@@ -15,4 +15,5 @@ public interface EventService {
     Boolean add(EventRequest eventRequest);
     Boolean edit(EventRequest eventRequest);
     Boolean delete(Long idEvent);
+    Boolean updateLinkImage(Long id, String urlImage);
 }

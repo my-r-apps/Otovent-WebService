@@ -16,4 +16,5 @@ public interface PostService {
     Boolean createPost(Long idUser, PostRequest postRequest);
     Boolean deletePost(Long id);
     Boolean updatePost(Long idUser, PostRequest postRequest);
+    Boolean updateLinkImage(Long id, String urlImage);
 }

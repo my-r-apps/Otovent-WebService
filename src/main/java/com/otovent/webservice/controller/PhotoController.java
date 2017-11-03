@@ -1,10 +1,14 @@
 package com.otovent.webservice.controller;
 
 import com.otovent.webservice.entity.Cars;
+import com.otovent.webservice.entity.Events;
+import com.otovent.webservice.entity.Posts;
 import com.otovent.webservice.entity.User;
 import com.otovent.webservice.entity.enums.PhotosDependency;
 import com.otovent.webservice.entity.response.BaseResponse;
 import com.otovent.webservice.service.CarsService;
+import com.otovent.webservice.service.EventService;
+import com.otovent.webservice.service.PostService;
 import com.otovent.webservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -32,6 +36,10 @@ public class PhotoController {
     @Autowired
     CarsService carsService;
     @Autowired
+    EventService eventService;
+    @Autowired
+    PostService postService;
+    @Autowired
     Environment environment;
 
     // TODO Controller for Upload
@@ -55,8 +63,18 @@ public class PhotoController {
                     PhotosDependency.CARS.hashCode()+".jpg";
             carsService.updateLinkImageCar(id,locationResource+keyName);
         }
-        else if (typeUpload.equals(PhotosDependency.EVENTS)){}
-        else if (typeUpload.equals(PhotosDependency.POSTS)){}
+        else if (typeUpload.equals(PhotosDependency.EVENTS)){
+            Events eventUploaded = eventService.getOne(id);
+            keyName = String.valueOf(eventUploaded.hashCode())+uploadedDate.getTime()+
+                    PhotosDependency.EVENTS.hashCode()+".jpg";
+            eventService.updateLinkImage(id, locationResource+keyName);
+        }
+        else if (typeUpload.equals(PhotosDependency.POSTS)){
+            Posts postUploaded = postService.getOnePost(id);
+            keyName = String.valueOf(postUploaded.hashCode())+uploadedDate.getTime()+
+                    PhotosDependency.POSTS.hashCode()+".jpg";
+            eventService.updateLinkImage(id, locationResource+keyName);
+        }
         // Photo Profile
         else if (typeUpload.equals(PhotosDependency.USERS)){
             User userTarget = userService.getDetailOneUser(id);

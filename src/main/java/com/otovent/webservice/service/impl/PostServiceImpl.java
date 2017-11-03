@@ -92,4 +92,12 @@ public class PostServiceImpl implements PostService{
         }
         return Boolean.TRUE;
     }
+
+    @Override
+    public Boolean updateLinkImage(Long id, String urlImage) {
+        Posts post = postRepository.findOne(id);
+        post.setImageUrl(urlImage);
+        postRepository.save(post);
+        return Boolean.TRUE;
+    }
 }

@@ -81,4 +81,12 @@ public class EventServiceImpl implements EventService{
         eventRepository.save(events);
         return Boolean.TRUE;
     }
+
+    @Override
+    public Boolean updateLinkImage(Long id, String urlImage) {
+        Events events = eventRepository.findOne(id);
+        events.setImageUrl(urlImage);
+        eventRepository.save(events);
+        return Boolean.TRUE;
+    }
 }
