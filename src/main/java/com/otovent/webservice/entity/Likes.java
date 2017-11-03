@@ -1,11 +1,13 @@
 package com.otovent.webservice.entity;
 
 import com.otovent.webservice.entity.enums.LikesDependency;
+import com.otovent.webservice.entity.enums.StatusEntity;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Table
 @Entity
@@ -21,6 +23,10 @@ public class Likes {
     private Long idTarget;
     
     private LikesDependency likesDependency;
+
+    private Date createdDate;
+
+    private StatusEntity statusEntity;
 
     @Tolerate
     Likes(){}

@@ -3,8 +3,10 @@ package com.otovent.webservice.service.impl;
 import com.otovent.webservice.entity.Posts;
 import com.otovent.webservice.entity.User;
 import com.otovent.webservice.entity.enums.StatusEntity;
+import com.otovent.webservice.entity.request.NotificationRequest;
 import com.otovent.webservice.entity.request.PostRequest;
 import com.otovent.webservice.repository.PostRepository;
+import com.otovent.webservice.service.NotificationService;
 import com.otovent.webservice.service.PostService;
 import com.otovent.webservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +42,11 @@ public class PostServiceImpl implements PostService{
 
     @Override
     public Boolean createPost(Long idUser,PostRequest postRequest) {
+        Date now = new Date();
         try{
             User userRequest = userService.getDetailOneUser(idUser);
             Posts postResult = Posts.builder()
-                    .createdDate(new Date())
+                    .createdDate(now)
                     .postDetail(postRequest.getDescription())
                     .status(StatusEntity.ACTIVE)
                     .user(userRequest)

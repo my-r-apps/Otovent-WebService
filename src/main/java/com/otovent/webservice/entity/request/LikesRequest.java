@@ -5,15 +5,19 @@ import com.otovent.webservice.entity.enums.LikesDependency;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 @Builder
 public class LikesRequest {
 
     private Long id;
 
-    private User user;
+    private Long user;
 
     private Long idTarget;
 
     private LikesDependency likesDependency;
+
+    private Date createdDate;
 }

@@ -9,6 +9,7 @@ import java.util.List;
 public interface CommentService {
     List<Comments> getAllCommentsByUser(Long idUser);
     List<Comments> getAllCommentsByPost(Long idPost);
+    Comments getOne(Long idComment);
     Boolean doComment(Long idPost, Long idUser, CommentRequest commentRequest);
     Boolean updateComment(Long idPost, Long idUser, CommentRequest commentRequest);
     Boolean deleteComment(Long id);
