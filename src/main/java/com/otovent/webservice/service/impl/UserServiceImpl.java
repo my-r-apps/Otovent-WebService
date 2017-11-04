@@ -20,8 +20,8 @@ public class UserServiceImpl implements UserService{
     LogUserService logUserService;
 
     @Override
-    public User validateUserById(String username,String password) {
-        User result = userRepository.findOneByUsernameAndPassword(username,password);
+    public User validateUserById(String email,String password) {
+        User result = userRepository.findOneByEmailAndPassword(email,password);
         if(result != null) {
             logUserService.insertLogUser(result,"Success Login");
             return result;
