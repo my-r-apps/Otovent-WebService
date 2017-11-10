@@ -22,9 +22,9 @@ public class NotificationController {
     NotificationService notificationService;
 
     @GetMapping(value = "/get/by/user/date", produces = MediaType.APPLICATION_JSON_VALUE)
-    public PaginationResponse getAllNotificationByUserAndDate(@RequestHeader Long idUser, @RequestHeader String date,
-                                                              @RequestHeader Pageable pageable){
-        Page<? extends Object> result = notificationService.getAllNotificationByUserAndDate(idUser,date,pageable);
+    public PaginationResponse getAllNotificationByUserAndDate(@RequestHeader Long idUser, @RequestHeader String dateRequested,
+                                                              Pageable pageable){
+        Page<? extends Object> result = notificationService.getAllNotificationByUserAndDate(idUser,dateRequested,pageable);
         return PaginationResponse.builder()
                 .httpStatus(HttpStatus.OK)
                 .message("Success")
@@ -33,8 +33,8 @@ public class NotificationController {
                 .build();
     }
 
-    @GetMapping(value = "/read", produces = MediaType.APPLICATION_JSON_VALUE)
-    public BaseResponse readNotification(@RequestHeader Long idNotification){
+    @PostMapping(value = "/read", produces = MediaType.APPLICATION_JSON_VALUE)
+    public BaseResponse readNotification(@RequestBody Long idNotification){
         List<Boolean> result = new ArrayList<>();
         result.add(notificationService.readNotification(idNotification));
         return BaseResponse.builder()
