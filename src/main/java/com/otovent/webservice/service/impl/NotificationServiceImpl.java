@@ -48,8 +48,8 @@ public class NotificationServiceImpl implements NotificationService{
             System.out.println(e.toString());
         }
         User userRequested = userService.getDetailOneUser(idUser);
-        List<Notification> listOfNotificationUser =  notificationRepository.findAllByUserAndDateOrderByDateDesc
-                (userRequested,date,pageable).getContent();
+        List<Notification> listOfNotificationUser =  notificationRepository.findAllByUserAndStatusNotificationAndDateOrderByDateDesc(
+                userRequested,StatusNotification.NEW,date,pageable).getContent();
         List result = new ArrayList<>();
         List<Comments> resultComment = new ArrayList<>();
         List<Likes> resultLikes = new ArrayList<>();
@@ -85,5 +85,16 @@ public class NotificationServiceImpl implements NotificationService{
         notification.setStatusNotification(StatusNotification.READ);
         notificationRepository.save(notification);
         return Boolean.TRUE;
+    }
+
+    @Override
+    public List<Notification> getAll() {
+        return notificationRepository.findAll();
+    }
+
+    @Override
+    public Page<Notification> getAllNewNotificationByUser(Long idUser, Pageable pageable) {
+        User userRequested = userService.getDetailOneUser(idUser);
+        return notificationRepository.findAllByUserAndStatusNotificationOrderByDateDesc(userRequested,StatusNotification.NEW, pageable);
     }
 }

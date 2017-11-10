@@ -43,4 +43,21 @@ public class NotificationController {
                 .httpStatus(HttpStatus.OK)
                 .build();
     }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Notification> getAllNotification(){
+        return notificationService.getAll();
+    }
+
+    @GetMapping(value = "/get/new", produces = MediaType.APPLICATION_JSON_VALUE)
+    public PaginationResponse getNewNotificationByUser(@RequestHeader Long idUser,
+                                                              Pageable pageable){
+        Page<Notification> result = notificationService.getAllNewNotificationByUser(idUser,pageable);
+        return PaginationResponse.builder()
+                .httpStatus(HttpStatus.OK)
+                .message("Success")
+                .totalPages(result.getTotalPages())
+                .result(result)
+                .build();
+    }
 }
