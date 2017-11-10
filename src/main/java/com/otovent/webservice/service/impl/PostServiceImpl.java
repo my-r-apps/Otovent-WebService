@@ -14,6 +14,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -30,8 +33,15 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public Page<Posts> getAllPostByUserAndCreatedDate(Long user, Date date, Pageable pageable) {
+    public Page<Posts> getAllPostByUserAndCreatedDate(Long user, String dateRequested, Pageable pageable) {
         User userRequested = userService.getDetailOneUser(user);
+        DateFormat format = new SimpleDateFormat("dd-mm-yyyy");
+        Date date = null;
+        try {
+            date = format.parse(dateRequested);
+        } catch (ParseException e) {
+            System.out.println(e.toString());
+        }
         return postRepository.findTop10ByUserAndCreatedDateAndStatusOrderByCreatedDateDesc(userRequested, date,
                 StatusEntity.ACTIVE,pageable);
     }

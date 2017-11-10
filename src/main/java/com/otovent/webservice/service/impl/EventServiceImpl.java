@@ -12,6 +12,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -25,8 +28,15 @@ public class EventServiceImpl implements EventService{
     UserService userService;
 
     @Override
-    public Page<Events> getAllEventByUserAndCreatedDate(Long idUser, Date date, Pageable pageable) {
+    public Page<Events> getAllEventByUserAndCreatedDate(Long idUser, String dateRequested, Pageable pageable) {
         User user = userService.getDetailOneUser(idUser);
+        DateFormat format = new SimpleDateFormat("dd-mm-yyyy");
+        Date date = null;
+        try {
+            date = format.parse(dateRequested);
+        } catch (ParseException e) {
+            System.out.println(e.toString());
+        }
         return eventRepository.findTop5ByUserAndCreatedDateAndStatusOrderByCreatedDateDesc(user,date,StatusEntity.ACTIVE,pageable);
     }
 

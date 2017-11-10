@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface EventService {
-    Page<Events> getAllEventByUserAndCreatedDate(Long idUser, Date date, Pageable pageable);
+    Page<Events> getAllEventByUserAndCreatedDate(Long idUser, String date, Pageable pageable);
     List<Events> getAll();
     Events getOne(Long idEvent);
     Boolean add(EventRequest eventRequest);

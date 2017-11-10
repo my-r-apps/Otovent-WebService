@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface PostService {
     List<Posts> getAllPost();
-    Page<Posts> getAllPostByUserAndCreatedDate(Long user, Date date, Pageable pageable);
+    Page<Posts> getAllPostByUserAndCreatedDate(Long user, String date, Pageable pageable);
     Posts getOnePost(Long id);
     Boolean createPost(Long idUser, PostRequest postRequest);
     Boolean deletePost(Long id);
