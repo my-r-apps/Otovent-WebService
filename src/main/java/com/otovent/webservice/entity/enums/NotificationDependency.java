@@ -4,5 +4,6 @@ public enum NotificationDependency {
     POST,
     EVENT,
     LIKE,
-    COMMENT
+    COMMENT,
+    FRIEND_REQUEST
 }

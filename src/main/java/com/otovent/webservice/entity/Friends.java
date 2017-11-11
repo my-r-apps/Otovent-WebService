@@ -1,5 +1,6 @@
 package com.otovent.webservice.entity;
 
+import com.otovent.webservice.entity.enums.FriendshipStatus;
 import com.otovent.webservice.entity.enums.StatusEntity;
 import lombok.Builder;
 import lombok.Data;
@@ -25,6 +26,8 @@ public class Friends {
     private Date dateFriend;
 
     private StatusEntity status;
+
+    private FriendshipStatus friendshipStatus;
 
     @Tolerate
     Friends(){}

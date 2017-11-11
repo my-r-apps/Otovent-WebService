@@ -37,6 +37,8 @@ public class NotificationServiceImpl implements NotificationService{
     EventService eventService;
     @Autowired
     UserService userService;
+    @Autowired
+    FriendService friendService;
 
     @Override
     public Page<? extends Object> getAllNotificationByUserAndDate(Long idUser, String dateRequested, Pageable pageable) {
@@ -57,6 +59,8 @@ public class NotificationServiceImpl implements NotificationService{
             if (notification.getNotificationDependency().equals(NotificationDependency.LIKE))
                 Optional.ofNullable(likeService.getOneLike(notification.getIdCommentLike())).ifPresent(resultLikes::add);
             else if (notification.getNotificationDependency().equals(NotificationDependency.COMMENT))
+                Optional.ofNullable(commentService.getOne(notification.getIdCommentLike())).ifPresent(resultComment::add);
+            else if (notification.getNotificationDependency().equals(NotificationDependency.FRIEND_REQUEST))
                 Optional.ofNullable(commentService.getOne(notification.getIdCommentLike())).ifPresent(resultComment::add);
         }
         result.addAll(resultComment);
