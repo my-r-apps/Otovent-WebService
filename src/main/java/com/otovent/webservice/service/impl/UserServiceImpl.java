@@ -103,15 +103,15 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Page<? extends Object> getTimeline(Long idUser, String dateRequested, Pageable pageable) {
+    public Page<? extends Object> getTimeline(Long idUser, Pageable pageable) {
         List<Friends> listOfidFriend = friendService.getAllFriendByUser(idUser,pageable).getContent();
         List<Posts> resultPost = new ArrayList<>();
         List<Events> resultEvent = new ArrayList<>();
         List result = new ArrayList<>();
         for (int i = 0; i < listOfidFriend.size(); i++) {
-            Optional.ofNullable(postService.getAllPostByUserAndCreatedDate(listOfidFriend.get(i).getId(),dateRequested,pageable).getContent())
+            Optional.ofNullable(postService.getAllPostByUserAndCreatedDate(listOfidFriend.get(i).getId(),pageable).getContent())
                     .ifPresent(resultPost::addAll);
-            Optional.ofNullable(eventService.getAllEventByUserAndCreatedDate(listOfidFriend.get(i).getId(),dateRequested,pageable).getContent())
+            Optional.ofNullable(eventService.getAllEventByUserAndCreatedDate(listOfidFriend.get(i).getId(),pageable).getContent())
                     .ifPresent(resultEvent::addAll);
             result.addAll(resultPost);
             result.addAll(resultEvent);
@@ -120,15 +120,15 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Page<? extends Object> getPromotedTimeline(Long idUser, String dateRequested, Pageable pageable) {
+    public Page<? extends Object> getPromotedTimeline(Long idUser, Pageable pageable) {
         List<User> vendorUser = userRepository.findAllByRole(Role.VENDOR);
         List<Posts> resultPost = new ArrayList<>();
         List<Events> resultEvent = new ArrayList<>();
         List result = new ArrayList<>();
         for (User vendor:vendorUser) {
-            Optional.ofNullable(postService.getAllPostByUserAndCreatedDate(vendor.getId(),dateRequested,pageable).getContent())
+            Optional.ofNullable(postService.getAllPostByUserAndCreatedDate(vendor.getId(),pageable).getContent())
                     .ifPresent(resultPost::addAll);
-            Optional.ofNullable(eventService.getAllEventByUserAndCreatedDate(vendor.getId(),dateRequested,pageable).getContent())
+            Optional.ofNullable(eventService.getAllEventByUserAndCreatedDate(vendor.getId(),pageable).getContent())
                     .ifPresent(resultEvent::addAll);
             result.addAll(resultPost);
             result.addAll(resultEvent);

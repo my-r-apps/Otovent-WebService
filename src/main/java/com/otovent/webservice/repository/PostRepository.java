@@ -12,6 +12,5 @@ import java.util.Date;
 
 @Repository
 public interface PostRepository extends JpaRepository<Posts,Long>{
-    Page<Posts> findTop10ByUserAndCreatedDateAndStatusOrderByCreatedDateDesc(User user, Date createdDate,
-                                                                             StatusEntity status, Pageable pageable);
+    Page<Posts> findTop10ByUserAndStatusOrderByCreatedDateDesc(User user, StatusEntity status, Pageable pageable);
 }

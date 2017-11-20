@@ -12,6 +12,5 @@ import java.util.Date;
 
 @Repository
 public interface EventRepository extends JpaRepository<Events,Long>{
-    Page<Events> findTop5ByUserAndCreatedDateAndStatusOrderByCreatedDateDesc(User user, Date createdDate,
-                                                                             StatusEntity status,Pageable pageable);
+    Page<Events> findTop5ByUserAndStatusOrderByCreatedDateDesc(User user, StatusEntity status,Pageable pageable);
 }

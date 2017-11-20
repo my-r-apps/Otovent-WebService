@@ -14,7 +14,7 @@ public interface UserService {
     User getDetailOneUser(Long id);
     List<User> getAllUser();
     List<User> searchUser(String searchName);
-    Page<? extends Object> getTimeline(Long idUser, String dateRequested, Pageable pageable);
-    Page<? extends Object> getPromotedTimeline(Long idUser, String dateRequested, Pageable pageable);
+    Page<? extends Object> getTimeline(Long idUser, Pageable pageable);
+    Page<? extends Object> getPromotedTimeline(Long idUser, Pageable pageable);
     void updatePhotoProfile(Long id, String urlImg);
 }

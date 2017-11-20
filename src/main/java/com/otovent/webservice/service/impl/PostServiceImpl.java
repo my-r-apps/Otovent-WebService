@@ -33,16 +33,9 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public Page<Posts> getAllPostByUserAndCreatedDate(Long user, String dateRequested, Pageable pageable) {
+    public Page<Posts> getAllPostByUserAndCreatedDate(Long user, Pageable pageable) {
         User userRequested = userService.getDetailOneUser(user);
-        DateFormat format = new SimpleDateFormat("dd-mm-yyyy");
-        Date date = null;
-        try {
-            date = format.parse(dateRequested);
-        } catch (ParseException e) {
-            System.out.println(e.toString());
-        }
-        return postRepository.findTop10ByUserAndCreatedDateAndStatusOrderByCreatedDateDesc(userRequested, date,
+        return postRepository.findTop10ByUserAndStatusOrderByCreatedDateDesc(userRequested,
                 StatusEntity.ACTIVE,pageable);
     }
 

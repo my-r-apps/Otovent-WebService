@@ -28,16 +28,9 @@ public class EventServiceImpl implements EventService{
     UserService userService;
 
     @Override
-    public Page<Events> getAllEventByUserAndCreatedDate(Long idUser, String dateRequested, Pageable pageable) {
+    public Page<Events> getAllEventByUserAndCreatedDate(Long idUser, Pageable pageable) {
         User user = userService.getDetailOneUser(idUser);
-        DateFormat format = new SimpleDateFormat("dd-mm-yyyy");
-        Date date = null;
-        try {
-            date = format.parse(dateRequested);
-        } catch (ParseException e) {
-            System.out.println(e.toString());
-        }
-        return eventRepository.findTop5ByUserAndCreatedDateAndStatusOrderByCreatedDateDesc(user,date,StatusEntity.ACTIVE,pageable);
+        return eventRepository.findTop5ByUserAndStatusOrderByCreatedDateDesc(user,StatusEntity.ACTIVE,pageable);
     }
 
     @Override

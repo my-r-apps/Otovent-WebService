@@ -95,8 +95,8 @@ public class UserController {
 
     // TODO to get post and event in timeline
     @GetMapping(value = "/get/timeline", produces = MediaType.APPLICATION_JSON_VALUE)
-    public PaginationResponse getUserTimeline(@RequestHeader Long idUser, @RequestHeader String dateRequested, Pageable pageable){
-        Page<? extends Object> result = userService.getTimeline(idUser,dateRequested,pageable);
+    public PaginationResponse getUserTimeline(@RequestHeader Long idUser, Pageable pageable){
+        Page<? extends Object> result = userService.getTimeline(idUser,pageable);
         return PaginationResponse.builder()
                 .result(result)
                 .totalPages(result.getTotalPages())
@@ -108,9 +108,9 @@ public class UserController {
 
     // TODO Get List Ads of vendors
     @RequestMapping(value = "/get/promoted", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-    public PaginationResponse getPromotedTimelineByUserAndDate(@RequestHeader Long id, @RequestHeader String date,
+    public PaginationResponse getPromotedTimelineByUserAndDate(@RequestHeader Long id,
                                                          Pageable pageable){
-        Page<? extends Object> result = userService.getPromotedTimeline(id,date,pageable);
+        Page<? extends Object> result = userService.getPromotedTimeline(id,pageable);
         return PaginationResponse.builder()
                 .result(result)
                 .totalPages(result.getTotalPages())
