@@ -2,6 +2,7 @@ package com.otovent.webservice.service.impl;
 
 import com.otovent.webservice.entity.Posts;
 import com.otovent.webservice.entity.User;
+import com.otovent.webservice.entity.enums.PostEventTimelineType;
 import com.otovent.webservice.entity.enums.StatusEntity;
 import com.otovent.webservice.entity.request.NotificationRequest;
 import com.otovent.webservice.entity.request.PostRequest;
@@ -53,6 +54,8 @@ public class PostServiceImpl implements PostService{
                     .createdDate(now)
                     .description(postRequest.getDescription())
                     .status(StatusEntity.ACTIVE)
+                    .postEventTimelineType(PostEventTimelineType.POST)
+                    .tipePostEvent("POST")
                     .user(userRequest)
                     .build();
             postRepository.save(postResult);

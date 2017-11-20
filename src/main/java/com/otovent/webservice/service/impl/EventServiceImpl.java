@@ -2,6 +2,7 @@ package com.otovent.webservice.service.impl;
 
 import com.otovent.webservice.entity.Events;
 import com.otovent.webservice.entity.User;
+import com.otovent.webservice.entity.enums.PostEventTimelineType;
 import com.otovent.webservice.entity.enums.StatusEntity;
 import com.otovent.webservice.entity.request.EventRequest;
 import com.otovent.webservice.repository.EventRepository;
@@ -54,6 +55,7 @@ public class EventServiceImpl implements EventService{
                 .name(eventRequest.getName())
                 .status(StatusEntity.ACTIVE)
                 .tipePostEvent("EVENT")
+                .postEventTimelineType(PostEventTimelineType.EVENT)
                 .user(userService.getDetailOneUser(eventRequest.getIdUser()))
                 .build();
         eventRepository.save(event);
