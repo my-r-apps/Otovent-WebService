@@ -104,7 +104,9 @@ public class UserController {
                 .httpStatus(HttpStatus.OK)
                 .build();
 
-    }// TODO Get List Ads of vendors
+    }
+
+    // TODO Get List Ads of vendors
     @RequestMapping(value = "/get/promoted", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
     public PaginationResponse getPromotedTimelineByUserAndDate(@RequestHeader Long id, @RequestHeader String date,
                                                          Pageable pageable){
@@ -112,6 +114,17 @@ public class UserController {
         return PaginationResponse.builder()
                 .result(result)
                 .totalPages(result.getTotalPages())
+                .message("Success")
+                .httpStatus(HttpStatus.OK)
+                .build();
+    }
+
+    // TODO Get List Ads of vendors
+    @RequestMapping(value = "/search", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public BaseResponse search(@RequestHeader String searchName){
+        List<User> result = userService.searchUser(searchName);
+        return BaseResponse.builder()
+                .result(result)
                 .message("Success")
                 .httpStatus(HttpStatus.OK)
                 .build();

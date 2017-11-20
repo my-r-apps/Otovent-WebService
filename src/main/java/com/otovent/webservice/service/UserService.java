@@ -13,6 +13,7 @@ public interface UserService {
     User addOrEditUser(UserRequest userRequest);
     User getDetailOneUser(Long id);
     List<User> getAllUser();
+    List<User> searchUser(String searchName);
     Page<? extends Object> getTimeline(Long idUser, String dateRequested, Pageable pageable);
     Page<? extends Object> getPromotedTimeline(Long idUser, String dateRequested, Pageable pageable);
     void updatePhotoProfile(Long id, String urlImg);

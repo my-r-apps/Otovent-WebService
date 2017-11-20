@@ -51,6 +51,39 @@ public class Seeder {
                 .build();
         userRepository.save(user2);
 
+        User user3 = User.builder()
+                .email("budi@gmail.com")
+                .firstName("Budi")
+                .lastName("Darmayanto")
+                .password("budi")
+                .username("darma")
+                .role(Role.MEMBER)
+                .status(StatusEntity.ACTIVE)
+                .build();
+        userRepository.save(user3);
+
+        User user4 = User.builder()
+                .email("adam@gmail.com")
+                .firstName("Adam")
+                .lastName("Marsono")
+                .password("adam")
+                .username("marsono")
+                .role(Role.MEMBER)
+                .status(StatusEntity.ACTIVE)
+                .build();
+        userRepository.save(user4);
+
+        User user5 = User.builder()
+                .email("yunita@gmail.com")
+                .firstName("yunita")
+                .lastName("simaranti")
+                .password("yunitra")
+                .username("simaranti")
+                .role(Role.MEMBER)
+                .status(StatusEntity.ACTIVE)
+                .build();
+        userRepository.save(user5);
+
         Friends friendship1 = Friends.builder()
                 .status(StatusEntity.ACTIVE)
                 .user(user)

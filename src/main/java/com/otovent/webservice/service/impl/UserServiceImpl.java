@@ -97,6 +97,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public List<User> searchUser(String searchName) {
+        return userRepository.
+            findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(searchName,searchName);
+    }
+
+    @Override
     public Page<? extends Object> getTimeline(Long idUser, String dateRequested, Pageable pageable) {
         List<Friends> listOfidFriend = friendService.getAllFriendByUser(idUser,pageable).getContent();
         List<Posts> resultPost = new ArrayList<>();
