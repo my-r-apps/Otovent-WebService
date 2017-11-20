@@ -1,5 +1,6 @@
 package com.otovent.webservice.entity;
 
+import com.otovent.webservice.entity.enums.PostEventTimelineType;
 import com.otovent.webservice.entity.enums.StatusEntity;
 import lombok.Builder;
 import lombok.Data;
@@ -30,6 +31,8 @@ public class Posts {
     private StatusEntity status;
 
     private String tipePostEvent = "POST";
+
+    private PostEventTimelineType postEventTimelineType = PostEventTimelineType.POST;
 
     @Tolerate
     Posts(){}
