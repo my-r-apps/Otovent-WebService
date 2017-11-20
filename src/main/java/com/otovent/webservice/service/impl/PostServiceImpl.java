@@ -51,7 +51,7 @@ public class PostServiceImpl implements PostService{
             User userRequest = userService.getDetailOneUser(idUser);
             Posts postResult = Posts.builder()
                     .createdDate(now)
-                    .postDetail(postRequest.getDescription())
+                    .description(postRequest.getDescription())
                     .status(StatusEntity.ACTIVE)
                     .user(userRequest)
                     .build();
@@ -83,7 +83,7 @@ public class PostServiceImpl implements PostService{
             User userRequest = userService.getDetailOneUser(id);
             Posts postResult = Posts.builder()
                     .id(postRequest.getId())
-                    .postDetail(postRequest.getDescription())
+                    .description(postRequest.getDescription())
                     .status(StatusEntity.ACTIVE)
                     .editedDate(new Date())
                     .user(userRequest)

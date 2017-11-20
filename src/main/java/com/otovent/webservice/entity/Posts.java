@@ -17,7 +17,7 @@ public class Posts {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String postDetail;
+    private String description;
     private String imageUrl;
 
     @ManyToOne(cascade = CascadeType.MERGE)
@@ -28,6 +28,8 @@ public class Posts {
     private Date editedDate;
 
     private StatusEntity status;
+
+    private String tipePostEvent = "POST";
 
     @Tolerate
     Posts(){}

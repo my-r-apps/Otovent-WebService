@@ -33,6 +33,8 @@ public class Events {
 
     private StatusEntity status;
 
+    private String tipePostEvent = "EVENT";
+
     @Tolerate
     Events(){}
 }

@@ -96,7 +96,7 @@ public class Seeder {
                 .user(user)
                 .status(StatusEntity.ACTIVE)
                 .createdDate(new Date())
-                .postDetail("Ini Post Testing")
+                .description("Ini Post Testing")
                 .build();
         postRepository.save(post);
 
