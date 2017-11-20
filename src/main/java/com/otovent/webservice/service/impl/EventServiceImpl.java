@@ -53,6 +53,7 @@ public class EventServiceImpl implements EventService{
                 .longitude(eventRequest.getLongitude())
                 .name(eventRequest.getName())
                 .status(StatusEntity.ACTIVE)
+                .tipePostEvent("EVENT")
                 .user(userService.getDetailOneUser(eventRequest.getIdUser()))
                 .build();
         eventRepository.save(event);

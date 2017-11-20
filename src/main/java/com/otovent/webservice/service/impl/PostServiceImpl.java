@@ -86,6 +86,7 @@ public class PostServiceImpl implements PostService{
                     .description(postRequest.getDescription())
                     .status(StatusEntity.ACTIVE)
                     .editedDate(new Date())
+                    .tipePostEvent("POST")
                     .user(userRequest)
                     .build();
             postRepository.save(postResult);
