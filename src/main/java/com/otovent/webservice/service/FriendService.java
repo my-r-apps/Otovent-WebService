@@ -13,4 +13,7 @@ public interface FriendService {
     Page<Friends> getAllFriendByUser(Long id, Pageable pageable);
     Boolean addFriend(FriendRequest friendRequest);
     Boolean deleteFriend(Long id);
+    Boolean confirmRequest(Long id);
+    Boolean rejectRequest(Long id);
+    Friends getOneByFriend(Long idUser, Long idFriend);
 }

@@ -32,6 +32,16 @@ public class FriendsController {
                 .httpStatus(HttpStatus.OK)
                 .build();
     }
+    @GetMapping(value = "/cek/friendship/by/friend", produces = MediaType.APPLICATION_JSON_VALUE)
+    public BaseResponse cekFriendship(@RequestBody Long idUser,Long idFriend) {
+        List<Friends> result = new ArrayList<>();
+        result.add(friendService.getOneByFriend(idUser,idFriend));
+        return BaseResponse.builder()
+                .result(result)
+                .message("Success")
+                .httpStatus(HttpStatus.OK)
+                .build();
+    }
     @GetMapping(value = "/get/by/request/user", produces = MediaType.APPLICATION_JSON_VALUE)
     public PaginationResponse getAllFriendsByUserRequested(@RequestHeader Long idUser, Pageable pageable){
         Page<Friends> result = friendService.getAllFriendByUser(idUser,pageable);
@@ -46,6 +56,26 @@ public class FriendsController {
     public BaseResponse addFriend(@RequestBody FriendRequest friendRequest){
         List<Boolean> result = new ArrayList<>();
         result.add(friendService.addFriend(friendRequest));
+        return BaseResponse.builder()
+                .result(result)
+                .message("Success")
+                .httpStatus(HttpStatus.OK)
+                .build();
+    }
+    @PostMapping(value = "/confirm", produces = MediaType.APPLICATION_JSON_VALUE)
+    public BaseResponse confirmRequest(@RequestBody Long id){
+        List<Boolean> result = new ArrayList<>();
+        result.add(friendService.confirmRequest(id));
+        return BaseResponse.builder()
+                .result(result)
+                .message("Success")
+                .httpStatus(HttpStatus.OK)
+                .build();
+    }
+    @PostMapping(value = "/reject", produces = MediaType.APPLICATION_JSON_VALUE)
+    public BaseResponse rejectRequest(@RequestBody Long id){
+        List<Boolean> result = new ArrayList<>();
+        result.add(friendService.rejectRequest(id));
         return BaseResponse.builder()
                 .result(result)
                 .message("Success")
