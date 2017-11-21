@@ -33,7 +33,7 @@ public class FriendsController {
                 .build();
     }
     @GetMapping(value = "/cek/friendship/by/friend", produces = MediaType.APPLICATION_JSON_VALUE)
-    public BaseResponse cekFriendship(@RequestHeader Long idUser,Long idFriend) {
+    public BaseResponse cekFriendship(@RequestHeader Long idUser, @RequestHeader Long idFriend) {
         List<Friends> result = new ArrayList<>();
         result.add(friendService.getOneByFriend(idUser,idFriend));
         return BaseResponse.builder()
