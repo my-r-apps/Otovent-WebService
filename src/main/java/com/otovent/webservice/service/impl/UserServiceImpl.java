@@ -108,6 +108,10 @@ public class UserServiceImpl implements UserService{
         List<Posts> resultPost = new ArrayList<>();
         List<Events> resultEvent = new ArrayList<>();
         List result = new ArrayList<>();
+        Optional.ofNullable(postService.getAllPostByUserAndCreatedDate(idUser,pageable).getContent())
+                .ifPresent(resultPost::addAll);
+        Optional.ofNullable(eventService.getAllEventByUserAndCreatedDate(idUser,pageable).getContent())
+                .ifPresent(resultEvent::addAll);
         for (int i = 0; i < listOfidFriend.size(); i++) {
             Optional.ofNullable(postService.getAllPostByUserAndCreatedDate(listOfidFriend.get(i).getId(),pageable).getContent())
                     .ifPresent(resultPost::addAll);
