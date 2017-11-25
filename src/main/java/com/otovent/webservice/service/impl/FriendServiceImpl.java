@@ -69,8 +69,8 @@ public class FriendServiceImpl implements FriendService{
     private void pushNotifFriendship(Long idUser, Long idFriend){
         NotificationRequest notificationRequest =
                 NotificationRequest.builder()
-                        .user(idUser)
-                        .idPostEvent(idFriend)
+                        .user(idFriend)
+                        .idPostEvent(idUser)
                         .statusNotification(StatusNotification.NEW)
                         .notificationDependency(NotificationDependency.FRIEND_REQUEST)
                         .date(new Date())
