@@ -112,6 +112,8 @@ public class UserServiceImpl implements UserService{
                 .ifPresent(resultPost::addAll);
         Optional.ofNullable(eventService.getAllEventByUserAndCreatedDate(idUser,pageable).getContent())
                 .ifPresent(resultEvent::addAll);
+        result.addAll(resultPost);
+        result.addAll(resultEvent);
         for (int i = 0; i < listOfidFriend.size(); i++) {
             Optional.ofNullable(postService.getAllPostByUserAndCreatedDate(listOfidFriend.get(i).getId(),pageable).getContent())
                     .ifPresent(resultPost::addAll);
