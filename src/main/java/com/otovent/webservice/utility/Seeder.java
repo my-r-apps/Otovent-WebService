@@ -1,10 +1,7 @@
 package com.otovent.webservice.utility;
 
 import com.otovent.webservice.entity.*;
-import com.otovent.webservice.entity.enums.NotificationDependency;
-import com.otovent.webservice.entity.enums.Role;
-import com.otovent.webservice.entity.enums.StatusEntity;
-import com.otovent.webservice.entity.enums.StatusNotification;
+import com.otovent.webservice.entity.enums.*;
 import com.otovent.webservice.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -89,6 +86,7 @@ public class Seeder {
                 .user(user)
                 .friend(user2)
                 .dateFriend(new Date())
+                .friendshipStatus(FriendshipStatus.ACCEPTED)
                 .build();
         friendRepository.save(friendship1);
 
