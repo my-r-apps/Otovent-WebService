@@ -23,9 +23,10 @@ public class FriendsController {
     FriendService friendService;
 
     @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
-    public BaseResponse getOneFriendship(@RequestBody Long id) {
+    public BaseResponse getOneFriendship(@RequestHeader Long idFriendship) {
         List<Friends> result = new ArrayList<>();
-        result.add(friendService.getOne(id));
+        Friends friendsShip = friendService.getOne(idFriendship);
+        result.add(friendsShip);
         return BaseResponse.builder()
                 .result(result)
                 .message("Success")
@@ -54,13 +55,21 @@ public class FriendsController {
     }
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse addFriend(@RequestBody FriendRequest friendRequest){
-        List<Boolean> result = new ArrayList<>();
-        result.add(friendService.addFriend(friendRequest));
-        return BaseResponse.builder()
-                .result(result)
-                .message("Success")
-                .httpStatus(HttpStatus.OK)
-                .build();
+        try {
+            List<Boolean> result = new ArrayList<>();
+            result.add(friendService.addFriend(friendRequest));
+            return BaseResponse.builder()
+                    .result(result)
+                    .message("Success")
+                    .httpStatus(HttpStatus.OK)
+                    .build();
+        }catch(Exception ex){
+            return BaseResponse.builder()
+                    .result(null)
+                    .message(ex.toString())
+                    .httpStatus(HttpStatus.OK)
+                    .build();
+        }
     }
     @PostMapping(value = "/confirm", produces = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse confirmRequest(@RequestBody Long id){

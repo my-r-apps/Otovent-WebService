@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FriendRepository extends JpaRepository<Friends,Long> {
     Page<Friends> findAllByUserAndStatus(User user, Pageable pageable, StatusEntity status);
-    Friends findByUserAndFriend(User user, User friend, StatusEntity status);
+    Friends findByUserAndFriendAndStatus(User user, User friend, StatusEntity status);
 }

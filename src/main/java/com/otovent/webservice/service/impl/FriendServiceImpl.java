@@ -31,7 +31,7 @@ public class FriendServiceImpl implements FriendService{
 
     @Override
     public Friends getOne(Long id) {
-        return friendRepository.getOne(id);
+        return friendRepository.findOne(id);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class FriendServiceImpl implements FriendService{
     public Boolean addFriend(FriendRequest friendRequest) {
         User userRequested = userService.getDetailOneUser(friendRequest.getUser());
         User userTarget = userService.getDetailOneUser(friendRequest.getFriend());
-        Friends existingFriendship = friendRepository.findByUserAndFriend(userRequested,userTarget,StatusEntity.ACTIVE);
+        Friends existingFriendship = friendRepository.findByUserAndFriendAndStatus(userRequested,userTarget,StatusEntity.ACTIVE);
         if (existingFriendship != null) {
             existingFriendship.setStatus(StatusEntity.ACTIVE);
             existingFriendship.setDateFriend(new Date());
@@ -107,6 +107,6 @@ public class FriendServiceImpl implements FriendService{
     public Friends getOneByFriend(Long idUser,Long idFriend) {
         User user = userService.getDetailOneUser(idUser);
         User friend = userService.getDetailOneUser(idFriend);
-        return friendRepository.findByUserAndFriend(user,friend,StatusEntity.ACTIVE);
+        return friendRepository.findByUserAndFriendAndStatus(user,friend,StatusEntity.ACTIVE);
     }
 }
