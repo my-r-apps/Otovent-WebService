@@ -81,7 +81,7 @@ public class FriendServiceImpl implements FriendService{
     @Override
     public Boolean deleteFriend(Long id) {
         Friends friendship = friendRepository.findOne(id);
-        friendship.setStatus(StatusEntity.DELETED);
+        friendship.setStatus(StatusEntity.ACTIVE );
         friendship.setFriendshipStatus(FriendshipStatus.TO_CONFIRM);
         friendRepository.save(friendship);
         return Boolean.TRUE;
@@ -99,6 +99,7 @@ public class FriendServiceImpl implements FriendService{
     public Boolean rejectRequest(Long id) {
         Friends friendship = friendRepository.findOne(id);
         friendship.setStatus(StatusEntity.DELETED);
+        friendship.setFriendshipStatus(FriendshipStatus.REJECTED);
         friendRepository.save(friendship);
         return Boolean.TRUE;
     }
