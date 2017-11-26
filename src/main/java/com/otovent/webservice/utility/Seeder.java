@@ -122,17 +122,9 @@ public class Seeder {
                 .statusNotification(StatusNotification.NEW)
                 .date(new Date())
                 .idCommentLike(1L)
+                .idPostEvent(post.getId())
                 .build();
         notificationRepository.save(notification);
-
-        Notification notification2 = Notification.builder()
-                .notificationDependency(NotificationDependency.COMMENT)
-                .user(user)
-                .statusNotification(StatusNotification.NEW)
-                .date(new Date())
-                .idCommentLike(2L)
-                .build();
-        notificationRepository.save(notification2);
 
         Cars car = Cars.builder()
                 .description("Ini DataSeeder")
