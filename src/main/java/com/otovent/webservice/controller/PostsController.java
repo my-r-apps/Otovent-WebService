@@ -37,7 +37,7 @@ public class PostsController {
     // TODO Add Post
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse addPost(@RequestHeader Long id, @RequestBody PostRequest postRequest){
-        List<Boolean> result = new ArrayList<>();
+        List<Posts> result = new ArrayList<>();
         result.add(postService.createPost(id,postRequest));
         return BaseResponse.builder().httpStatus(HttpStatus.OK).message("Success").result(result).build();
     }

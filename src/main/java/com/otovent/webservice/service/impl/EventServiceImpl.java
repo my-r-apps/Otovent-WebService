@@ -45,7 +45,7 @@ public class EventServiceImpl implements EventService{
     }
 
     @Override
-    public Boolean add(EventRequest eventRequest) {
+    public Events add(EventRequest eventRequest) {
         Events event = Events.builder()
                 .createdDate(new Date())
                 .description(eventRequest.getDescription())
@@ -59,7 +59,7 @@ public class EventServiceImpl implements EventService{
                 .user(userService.getDetailOneUser(eventRequest.getIdUser()))
                 .build();
         eventRepository.save(event);
-        return Boolean.TRUE;
+        return event;
     }
 
     @Override

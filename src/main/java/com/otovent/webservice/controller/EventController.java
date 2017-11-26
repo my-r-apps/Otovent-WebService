@@ -42,7 +42,7 @@ public class EventController {
 
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse add(@RequestBody EventRequest eventRequest){
-        List<Boolean> result = new ArrayList<>();
+        List<Events> result = new ArrayList<>();
         result.add(eventService.add(eventRequest));
         return BaseResponse.builder()
                 .message("Success")

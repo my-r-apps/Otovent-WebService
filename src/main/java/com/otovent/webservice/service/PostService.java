@@ -13,7 +13,7 @@ public interface PostService {
     List<Posts> getAllPost();
     Page<Posts> getAllPostByUserAndCreatedDate(Long user, Pageable pageable);
     Posts getOnePost(Long id);
-    Boolean createPost(Long idUser, PostRequest postRequest);
+    Posts createPost(Long idUser, PostRequest postRequest);
     Boolean deletePost(Long id);
     Boolean updatePost(Long idUser, PostRequest postRequest);
     Boolean updateLinkImage(Long id, String urlImage);

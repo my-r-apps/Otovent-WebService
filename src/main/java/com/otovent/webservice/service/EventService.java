@@ -12,7 +12,7 @@ public interface EventService {
     Page<Events> getAllEventByUserAndCreatedDate(Long idUser, Pageable pageable);
     List<Events> getAll();
     Events getOne(Long idEvent);
-    Boolean add(EventRequest eventRequest);
+    Events add(EventRequest eventRequest);
     Boolean edit(EventRequest eventRequest);
     Boolean delete(Long idEvent);
     Boolean updateLinkImage(Long id, String urlImage);

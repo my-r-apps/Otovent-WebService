@@ -13,6 +13,7 @@ import com.otovent.webservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.social.facebook.api.Post;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
@@ -46,11 +47,12 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public Boolean createPost(Long idUser,PostRequest postRequest) {
+    public Posts createPost(Long idUser, PostRequest postRequest) {
         Date now = new Date();
+        Posts postResult = null;
         try{
             User userRequest = userService.getDetailOneUser(idUser);
-            Posts postResult = Posts.builder()
+            postResult = Posts.builder()
                     .createdDate(now)
                     .description(postRequest.getDescription())
                     .status(StatusEntity.ACTIVE)
@@ -61,9 +63,9 @@ public class PostServiceImpl implements PostService{
             postRepository.save(postResult);
         }catch (Exception ex){
             System.out.println(ex.toString());
-            return Boolean.FALSE;
+            return postResult;
         }
-        return Boolean.TRUE;
+        return postResult;
     }
 
     @Override
