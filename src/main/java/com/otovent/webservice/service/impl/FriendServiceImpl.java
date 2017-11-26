@@ -50,7 +50,8 @@ public class FriendServiceImpl implements FriendService{
             existingFriendship.setDateFriend(new Date());
             existingFriendship.setFriendshipStatus(FriendshipStatus.TO_CONFIRM);
             friendRepository.save(existingFriendship);
-            pushNotifFriendship(userRequested.getId(),userTarget.getId());
+            Long idFriendship = friendRepository.findByUserAndFriendAndStatus(userRequested,userTarget,StatusEntity.ACTIVE).getId();
+            pushNotifFriendship(idFriendship,userTarget.getId());
             return Boolean.TRUE;
         } else {
             Friends friend = Friends.builder()
@@ -61,7 +62,8 @@ public class FriendServiceImpl implements FriendService{
                     .status(StatusEntity.ACTIVE)
                     .build();
             friendRepository.save(friend);
-            pushNotifFriendship(userRequested.getId(),userTarget.getId());
+            Long idFriendship = friendRepository.findByUserAndFriendAndStatus(userRequested,userTarget,StatusEntity.ACTIVE).getId();
+            pushNotifFriendship(idFriendship,userTarget.getId());
             return Boolean.TRUE;
         }
     }
