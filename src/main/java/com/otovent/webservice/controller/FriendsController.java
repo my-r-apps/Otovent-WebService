@@ -72,9 +72,9 @@ public class FriendsController {
         }
     }
     @PostMapping(value = "/confirm", produces = MediaType.APPLICATION_JSON_VALUE)
-    public BaseResponse confirmRequest(@RequestBody Long id){
+    public BaseResponse confirmRequest(@RequestBody FriendRequest friendRequest){
         List<Boolean> result = new ArrayList<>();
-        result.add(friendService.confirmRequest(id));
+        result.add(friendService.confirmRequest(friendRequest.getId()));
         return BaseResponse.builder()
                 .result(result)
                 .message("Success")
@@ -82,9 +82,9 @@ public class FriendsController {
                 .build();
     }
     @PostMapping(value = "/reject", produces = MediaType.APPLICATION_JSON_VALUE)
-    public BaseResponse rejectRequest(@RequestBody Long id){
+    public BaseResponse rejectRequest(@RequestBody FriendRequest friendRequest){
         List<Boolean> result = new ArrayList<>();
-        result.add(friendService.rejectRequest(id));
+        result.add(friendService.rejectRequest(friendRequest.getId()));
         return BaseResponse.builder()
                 .result(result)
                 .message("Success")
@@ -92,9 +92,9 @@ public class FriendsController {
                 .build();
     }
     @PostMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_VALUE)
-    public BaseResponse deleteFried(@RequestBody Long id){
+    public BaseResponse deleteFried(@RequestBody FriendRequest friendRequest){
         List<Boolean> result = new ArrayList<>();
-        result.add(friendService.deleteFriend(id));
+        result.add(friendService.deleteFriend(friendRequest.getId()));
         return BaseResponse.builder()
                 .result(result)
                 .message("Success")
