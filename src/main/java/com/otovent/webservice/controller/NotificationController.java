@@ -1,6 +1,7 @@
 package com.otovent.webservice.controller;
 
 import com.otovent.webservice.entity.Notification;
+import com.otovent.webservice.entity.request.NotificationRequest;
 import com.otovent.webservice.entity.response.BaseResponse;
 import com.otovent.webservice.entity.response.PaginationResponse;
 import com.otovent.webservice.service.NotificationService;
@@ -34,9 +35,9 @@ public class NotificationController {
     }
 
     @PostMapping(value = "/read", produces = MediaType.APPLICATION_JSON_VALUE)
-    public BaseResponse readNotification(@RequestBody Long idNotification){
+    public BaseResponse readNotification(@RequestBody NotificationRequest notificationRequest){
         List<Boolean> result = new ArrayList<>();
-        result.add(notificationService.readNotification(idNotification));
+        result.add(notificationService.readNotification(notificationRequest.getId()));
         return BaseResponse.builder()
                 .message("Success")
                 .result(result)
