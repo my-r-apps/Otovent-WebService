@@ -95,6 +95,8 @@ public class Seeder {
                 .status(StatusEntity.ACTIVE)
                 .createdDate(new Date())
                 .description("Ini Post Testing")
+                .tipePostEvent("POST")
+                .postEventTimelineType(PostEventTimelineType.POST)
                 .build();
         postRepository.save(post);
 
